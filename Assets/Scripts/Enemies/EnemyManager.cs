@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class EnemyManager : MonoBehaviour
     public int bombEnemyCount = 2;
     public int attackEnemyCount = 2;
     public float spawnInterval = 10f;
+    public int maxEnemies = 10;
+
+    private List<GameObject> activeEnemies = new List<GameObject>();
 
     void Start()
     {
         SpawnEnemies(bombEnemyPrefab, bombEnemyCount);
-        SpawnEnemies(attackEnemyPrefab,  attackEnemyCount);
+        SpawnEnemies(attackEnemyPrefab, attackEnemyCount);
 
         StartCoroutine(SpawnEnemiesRoutine());
     }
@@ -27,7 +31,10 @@ public class EnemyManager : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnInterval);
 
-            // Validate prefabs before instantiating
+            CleanUpNullEnemies(); // Remove destroyed ones
+
+            if (activeEnemies.Count >= maxEnemies) continue;
+
             if (bombEnemyPrefab != null)
             {
                 SpawnEnemies(bombEnemyPrefab, bombEnemyCount);
@@ -50,15 +57,20 @@ public class EnemyManager : MonoBehaviour
 
     void SpawnEnemies(GameObject prefab, int count)
     {
-        for (int i = 0; i < count; i++)
+        int spawnableCount = Mathf.Min(count, maxEnemies - activeEnemies.Count);
+
+        for (int i = 0; i < spawnableCount; i++)
         {
-            if (spawnPoints.Length == 0) return; // Avoid errors if no spawn points exist
+            if (spawnPoints.Length == 0) return;
 
             Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            if (prefab != null)
-            {
-                Instantiate(prefab, sp.position, sp.rotation);
-            }
+            GameObject enemy = Instantiate(prefab, sp.position, sp.rotation);
+            activeEnemies.Add(enemy);
         }
+    }
+
+    void CleanUpNullEnemies()
+    {
+        activeEnemies.RemoveAll(e => e == null);
     }
 }

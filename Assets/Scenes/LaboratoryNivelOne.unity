@@ -790,8 +790,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b51c5530639c4a8fc931ce27c1e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombEnemyPrefab: {fileID: 2205629857163510788, guid: 514bcc5974c005d428db5d075b3f75e0, type: 3}
-  attackEnemyPrefab: {fileID: 8508539008945877248, guid: 8ab4387969cc918499461f0d3a211970, type: 3}
+  bombEnemyPrefab: {fileID: 248364554812170147, guid: 8ab4387969cc918499461f0d3a211970, type: 3}
+  attackEnemyPrefab: {fileID: 295048798979671064, guid: 514bcc5974c005d428db5d075b3f75e0, type: 3}
   spawnPoints:
   - {fileID: 1287383392}
   - {fileID: 1628036936}
@@ -801,6 +801,7 @@ MonoBehaviour:
   bombEnemyCount: 2
   attackEnemyCount: 2
   spawnInterval: 10
+  maxEnemies: 10
 --- !u!1 &480076683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,7 +4041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedVersion: 0
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}

@@ -12,11 +12,12 @@ GameObject:
   - component: {fileID: 5050865405693351348}
   - component: {fileID: 2659970231608632259}
   - component: {fileID: 2631116256453296026}
-  - component: {fileID: 8133456328022526412}
   - component: {fileID: 4829553392720476525}
   - component: {fileID: 8252896007607450437}
   - component: {fileID: 500637390754293551}
   - component: {fileID: 6801137051779486407}
+  - component: {fileID: -8588163724285901743}
+  - component: {fileID: -9031112264228973788}
   m_Layer: 0
   m_Name: EnemieAttack
   m_TagString: Enemy
@@ -116,21 +117,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8133456328022526412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248364554812170147}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afb1df1f00891c4ea2281bd9c573e00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  patrolPoints: []
-  movementSpeed: 3
 --- !u!195 &4829553392720476525
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -139,7 +125,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248364554812170147}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -160,13 +146,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248364554812170147}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c5bdaaee33288344a2c136a310ee78c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  attackPower: 10
+  defense: 5
+  patrolRadius: 10
+  chaseRange: 15
+  attackRange: 3
+  fleeHealthThreshold: 20
+  attackCooldown: 1.5
+  healthUI: {fileID: 0}
   currentState: 0
-  player: {fileID: 8603262828046358705, guid: 7fb500e64a3464a40abe924013623ae8, type: 3}
   chaseSpeed: 3.5
   chargeSpeed: 8
   chaseDuration: 5
@@ -224,6 +218,42 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8588163724285901743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248364554812170147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47e56df5fdb79646bef666c9d4e96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  attackPower: 10
+  defense: 5
+  patrolRadius: 100
+  chaseRange: 15
+  attackRange: 3
+  fleeHealthThreshold: 20
+  attackCooldown: 1.5
+  healthUI: {fileID: -9031112264228973788}
+  shieldStrength: 50
+  shieldRegenRate: 5
+--- !u!114 &-9031112264228973788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248364554812170147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618fac6351f230f498f9eabff38583d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthFill: {fileID: 3825123234456068496}
 --- !u!1 &2321978057786286430
 GameObject:
   m_ObjectHideFlags: 0

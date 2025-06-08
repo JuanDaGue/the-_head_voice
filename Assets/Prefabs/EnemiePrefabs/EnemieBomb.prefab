@@ -12,11 +12,12 @@ GameObject:
   - component: {fileID: 21875691960862150}
   - component: {fileID: 3696723241061073614}
   - component: {fileID: 5620081387747083122}
-  - component: {fileID: 4456203055314230871}
   - component: {fileID: 2780155780609931200}
   - component: {fileID: 6502853392045333186}
   - component: {fileID: 6130124598893625421}
   - component: {fileID: 2690668372586588803}
+  - component: {fileID: -6222287001590930954}
+  - component: {fileID: 4383249739688585045}
   m_Layer: 0
   m_Name: EnemieBomb
   m_TagString: Enemy
@@ -117,21 +118,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4456203055314230871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295048798979671064}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afb1df1f00891c4ea2281bd9c573e00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  patrolPoints: []
-  movementSpeed: 3
 --- !u!195 &2780155780609931200
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -140,7 +126,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295048798979671064}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -161,7 +147,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295048798979671064}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8616a485a5241ed4b8d795705f5ff69c, type: 3}
   m_Name: 
@@ -225,6 +211,43 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6222287001590930954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295048798979671064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5ad2b310ed4d44d889c2615b1799d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  attackPower: 10
+  defense: 5
+  patrolRadius: 10
+  chaseRange: 15
+  attackRange: 3
+  fleeHealthThreshold: 20
+  attackCooldown: 1.5
+  healthUI: {fileID: 4383249739688585045}
+  projectilePrefab: {fileID: 1912806689999129575, guid: 253a6103128d21641bb5a130ce734630, type: 3}
+  firePoint: {fileID: 344247737400539290}
+  projectileSpeed: 12
+--- !u!114 &4383249739688585045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295048798979671064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618fac6351f230f498f9eabff38583d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthFill: {fileID: 1172042665976511295}
 --- !u!1 &1270985839333022647
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,13 +414,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.9339623, g: 0.23349057, b: 0.23349057, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
