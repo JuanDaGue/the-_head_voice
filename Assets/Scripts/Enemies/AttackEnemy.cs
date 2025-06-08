@@ -1,94 +1,102 @@
-
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class AttackEnemy : MonoBehaviour
+public class AttackEnemy : Enemy
 {
-    public enum State { Chase, Charge }
-    public State currentState = State.Chase;
+    public enum ChargeState { Chase, Charge }
+    public new ChargeState currentState = ChargeState.Chase;
 
-    public Transform player;
-    public float chaseSpeed = 3.5f;
-    public float chargeSpeed = 8f;
-    public float chaseDuration = 5f;
+    [Header("Charge Settings")]
+    public float chaseSpeed     = 3.5f;
+    public float chargeSpeed    = 8f;
+    public float chaseDuration  = 5f;
+
+    [Header("Explosion Settings")]
     public GameObject explosionEffect;
     public float explosionRadius = 5f;
-    public float explosionForce = 700f;
+    public float explosionForce  = 700f;
 
-    private NavMeshAgent agent;
     private float stateTimer;
 
-    void Start()
+    protected override void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        base.Start();
+        agent.stoppingDistance = 0f;
         stateTimer = chaseDuration;
+        currentState = ChargeState.Chase;
     }
 
-    void Update()
+    protected override void Update()
     {
+        // count down timer
         stateTimer -= Time.deltaTime;
 
         switch (currentState)
         {
-            case State.Chase:
+            case ChargeState.Chase:
                 agent.speed = chaseSpeed;
                 agent.isStopped = false;
-                agent.SetDestination(player.transform.position);
+                agent.SetDestination(player.position);
+
                 if (stateTimer <= 0f)
-                {
                     EnterChargeState();
-                }
                 break;
 
-            case State.Charge:
+            case ChargeState.Charge:
                 agent.speed = chargeSpeed;
                 agent.isStopped = false;
-                agent.SetDestination(player.transform.position);
+                agent.SetDestination(player.position);
                 break;
         }
     }
 
-    void EnterChargeState()
+    private void EnterChargeState()
     {
-        currentState = State.Charge;
-        agent.speed = chargeSpeed;
-        // Optional: play a charge animation or effect
+        currentState = ChargeState.Charge;
+        // reset timer if you want repeated cycles:
+        // stateTimer = chaseDuration;
+        // optional: play charge VFX or sound
     }
 
-    void OnCollisionEnter(Collision collision)
+    // We don't use the base Attack() → DoAttack() here, so just stub it
+    protected override void DoAttack() { }
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if (currentState == State.Charge && collision.transform.CompareTag("Player"))
+        // Only explode when charging and hitting the player
+        if (currentState == ChargeState.Charge && collision.transform.CompareTag("Player"))
         {
             Explode();
         }
     }
 
-    void Explode()
+    private void Explode()
     {
+        // Spawn VFX
         if (explosionEffect != null)
         {
-            GameObject explosion=    Instantiate(explosionEffect, transform.position, Quaternion.identity);
-            Destroy(explosion, 2f); // Destroy effect after 2 seconds
+            GameObject fx = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(fx, 2f);
         }
 
+        // Apply force & damage in radius
         Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
-        foreach (Collider hit in hits)
+        foreach (var hit in hits)
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-            }
+            // physics push
+            if (hit.attachedRigidbody != null)
+                hit.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
+            // damage the player
             if (hit.CompareTag("Player"))
             {
-                // Call player damage logic here
-                Debug.Log("Player hit by explosion!");
+                // assume your PlayerHealth has TakeDamage(float)
+                hit.GetComponent<LifeSystem>()?.TakeDamage(attackPower);
             }
         }
 
-        Destroy(gameObject);
+        lifeSystem?.TakeDamage(lifeSystem.Max); // self-destruct
+        Destroy(gameObject); // destroy this enemy
     }
 }

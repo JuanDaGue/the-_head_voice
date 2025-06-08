@@ -18,7 +18,7 @@ public class FlameGun : MonoBehaviour
     }
         private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("flame: " + other.name + "   The tag is " + other.tag);
+        //Debug.Log("flame: " + other.name + "   The tag is " + other.tag);
         
         // Check if the collider is an impact target.
         if ( other.CompareTag("Enemy") )

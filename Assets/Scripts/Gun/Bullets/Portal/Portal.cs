@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class Portal : Bullet
 {
     [Header("Portal Settings")]
     //public Transform destination; // Assign another portal or target point
     public float minHeightY = 5f;
 
-    void Start()
+    protected override void Start()
     {
 
 
@@ -19,6 +19,11 @@ public class Portal : MonoBehaviour
         }   
     }
 
+    protected override void OnHit(Collider other)
+    {
+        // Implement your logic for when the portal is hit
+        Debug.Log("Portal OnHit called with: " + other.name);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
