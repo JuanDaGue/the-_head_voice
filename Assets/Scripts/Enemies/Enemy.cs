@@ -28,7 +28,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected LifeSystem lifeSystem;
 
-[SerializeField] private UIenemyHealth healthUI;
+    [SerializeField] private UIenemyHealth healthUI;
     protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -39,7 +39,7 @@ public abstract class Enemy : MonoBehaviour
         ChooseNewPatrolPoint();
         TransitionTo(State.Patrol);
         healthUI.UpdateHealth(lifeSystem.Current, lifeSystem.Max);
-lifeSystem.OnDeath.AddListener(() => StartCoroutine(DestroyAfterDeathAnimation()));
+        lifeSystem.OnDeath.AddListener(() => StartCoroutine(DestroyAfterDeathAnimation()));
     }
 
     protected virtual void Update()
