@@ -12,8 +12,12 @@ public class RangedEnemy : Enemy
         if (projectilePrefab == null || firePoint == null) return;
 
         // Instantiate and fire projectile toward player
-        Vector3 dir = (player.position + Vector3.up * 1f - firePoint.position).normalized;
+        Vector3 dir = (player.position + Vector3.up * 1.5f - firePoint.position).normalized;
         GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(dir));
+        Bullet bullet = proj.GetComponent<Bullet>();
+        if (bullet != null) bullet.speed = projectileSpeed;
+        bullet.damage = attackPower; // Set damage for the bullet logic
+        bullet.direction = dir; // Store direction for bullet logic
         Rigidbody rb = proj.GetComponent<Rigidbody>();
         if (rb != null) rb.linearVelocity = dir * projectileSpeed;
     }

@@ -27,7 +27,7 @@ public class Gun1 : GunBase
         // Assign velocity to the rigidbody
         rb.linearVelocity = initVel;
 
-        Debug.Log("Fired"+ initVel);
+        //Debug.Log("Fired"+ initVel);
         // Optionally adjust linear damping to simulate air resistance
         rb.linearDamping = 0f;
         

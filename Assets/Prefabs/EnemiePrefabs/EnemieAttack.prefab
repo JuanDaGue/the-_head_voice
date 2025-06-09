@@ -126,7 +126,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -204,9 +204,9 @@ MonoBehaviour:
   maxHealth: 100
   attackPower: 10
   defense: 5
-  patrolRadius: 100
+  patrolRadius: 200
   chaseRange: 15
-  attackRange: 3
+  attackRange: 5
   fleeHealthThreshold: 20
   attackCooldown: 1.5
   healthUI: {fileID: -9031112264228973788}
