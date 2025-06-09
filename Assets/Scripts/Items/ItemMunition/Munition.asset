@@ -15,7 +15,7 @@ MonoBehaviour:
   damageMultiplier: 1
   fireRateMultiplier: 1
   projectileSpeedMultiplier: 1
-  clipSizeMultiplier: 1
+  clipSizeMultiplier: 2
   damageBonus: -3
   fireRateBonus: 0
   projectileSpeedBonus: 2
