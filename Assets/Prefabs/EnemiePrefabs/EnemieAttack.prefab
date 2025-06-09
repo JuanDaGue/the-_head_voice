@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2659970231608632259}
   - component: {fileID: 2631116256453296026}
   - component: {fileID: 4829553392720476525}
-  - component: {fileID: 8252896007607450437}
   - component: {fileID: 500637390754293551}
   - component: {fileID: 6801137051779486407}
   - component: {fileID: -8588163724285901743}
@@ -139,34 +138,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8252896007607450437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248364554812170147}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c5bdaaee33288344a2c136a310ee78c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  attackPower: 10
-  defense: 5
-  patrolRadius: 10
-  chaseRange: 15
-  attackRange: 3
-  fleeHealthThreshold: 20
-  attackCooldown: 1.5
-  healthUI: {fileID: 0}
-  currentState: 0
-  chaseSpeed: 3.5
-  chargeSpeed: 8
-  chaseDuration: 5
-  explosionEffect: {fileID: 8464950693656172981, guid: 83ad694f134ab954580473212156b35a, type: 3}
-  explosionRadius: 5
-  explosionForce: 700
 --- !u!114 &500637390754293551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -498,10 +469,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

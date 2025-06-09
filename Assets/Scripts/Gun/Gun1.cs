@@ -23,8 +23,10 @@ public class Gun1 : GunBase
         Vector3 initVel = dir * projectileSpeed;
         bullet.direction = dir.normalized; // store direction for bullet logic
         bullet.speed = projectileSpeed; // set speed for bullet logic
+        bullet.damage = damage; // set damage for bullet logic
         // Assign velocity to the rigidbody
         rb.linearVelocity = initVel;
+
         Debug.Log("Fired"+ initVel);
         // Optionally adjust linear damping to simulate air resistance
         rb.linearDamping = 0f;

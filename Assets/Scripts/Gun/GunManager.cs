@@ -4,13 +4,18 @@ using System.Collections.Generic;
 [RequireComponent(typeof(LineRenderer))]
 public class GunManager : MonoBehaviour
 {
+    [Header("Weapon Assets")]
     public List<GunBase> guns;
+
+    [Header("Fire Point")]
     public Transform firePoint;
 
-    private Camera playerCamera;
-    private GunBase activeGun;
-    private LineRenderer lineRenderer;
+    [Header("Item Inventory")]
+    public ItemInventory inventory;
 
+    private Camera playerCamera;
+    private LineRenderer lineRenderer;
+    private GunBase activeGun;
     private float cooldownTimer = 0f;
     private int ammoInClip = 0;
 
@@ -18,6 +23,8 @@ public class GunManager : MonoBehaviour
     {
         playerCamera = Camera.main;
         lineRenderer = GetComponent<LineRenderer>();
+        if (inventory == null)
+            inventory = GetComponent<ItemInventory>();
 
         if (guns.Count > 0)
             EquipGun(0);
@@ -36,6 +43,7 @@ public class GunManager : MonoBehaviour
     {
         if ((Input.GetKey(KeyCode.E) || Input.GetMouseButton(0)) && cooldownTimer <= 0 && ammoInClip > 0)
         {
+            ApplyBuffsToActiveGun();
             activeGun.Fire(firePoint, playerCamera, lineRenderer);
             cooldownTimer = activeGun.fireRate;
             ammoInClip--;
@@ -92,4 +100,28 @@ public class GunManager : MonoBehaviour
     {
         return ammoInClip;
     }
+
+    void ApplyBuffsToActiveGun()
+    {
+        //Debug.Log("Applying buffs to active gun...");
+        WeaponStats baseStats = new WeaponStats(
+            activeGun.baseDamage,
+            activeGun.baseFireRate,
+            activeGun.baseProjectileSpeed,
+            activeGun.baseClipSize
+
+        );
+
+        WeaponStats buffed = inventory.ApplyBuffs(baseStats);
+
+        activeGun.damage = buffed.damage;
+        activeGun.fireRate = buffed.fireRate;
+        activeGun.projectileSpeed = buffed.projectileSpeed;
+        activeGun.clipSize = buffed.clipSize;
+    }
+
+    // public int   GetAmmoInClip()     => ammoInClip;
+    // public float GetCooldownTime()   => cooldownTimer;
+    // public float GetReloadProgress() => cooldownTimer / activeGun.fireRate;
+    // public GunBase GetActiveGun()    => activeGun;
 }

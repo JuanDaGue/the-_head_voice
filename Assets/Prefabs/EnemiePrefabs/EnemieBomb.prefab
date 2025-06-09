@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3696723241061073614}
   - component: {fileID: 5620081387747083122}
   - component: {fileID: 2780155780609931200}
-  - component: {fileID: 6502853392045333186}
   - component: {fileID: 6130124598893625421}
   - component: {fileID: 2690668372586588803}
   - component: {fileID: -6222287001590930954}
@@ -140,26 +139,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6502853392045333186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295048798979671064}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8616a485a5241ed4b8d795705f5ff69c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8603262828046358705, guid: 7fb500e64a3464a40abe924013623ae8, type: 3}
-  bombPrefab: {fileID: 1912806689999129575, guid: 253a6103128d21641bb5a130ce734630, type: 3}
-  firePoint: {fileID: 344247737400539290}
-  attackInterval: 5
-  maxDistance: 15
-  projectileSpeed: 20
-  gravity: -10
-  timeToLive: 5
 --- !u!114 &6130124598893625421
 MonoBehaviour:
   m_ObjectHideFlags: 0
