@@ -19,11 +19,14 @@ MonoBehaviour:
   baseFireRate: 0.2
   baseProjectileSpeed: 25
   baseClipSize: 10
+  baseReloadTime: 2
   damage: 10
-  fireRate: 0.1
+  fireRate: 0.2
   projectileSpeed: 25
   clipSize: 10
+  reloadTime: 2
   gravity: 0
   timeToLive: 10
   trajectoryResolution: 10
   projectilePrefab: {fileID: 7293012263426145516, guid: 5663f3fe9c88dec4096b9d1fc1267158, type: 3}
+  gunModelPrefab: {fileID: 8288977707117067636, guid: e0846afb66a84fa49bb4237aeeef9127, type: 3}
