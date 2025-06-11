@@ -205,15 +205,15 @@ MonoBehaviour:
   maxHealth: 100
   attackPower: 10
   defense: 5
-  patrolRadius: 10
+  patrolRadius: 50
   chaseRange: 15
-  attackRange: 3
+  attackRange: 10
   fleeHealthThreshold: 20
   attackCooldown: 1.5
   healthUI: {fileID: 4383249739688585045}
-  projectilePrefab: {fileID: 1912806689999129575, guid: 253a6103128d21641bb5a130ce734630, type: 3}
+  projectilePrefab: {fileID: 49082832453189840, guid: b308c703c3cd0774fb1e1fed83f95aec, type: 3}
   firePoint: {fileID: 344247737400539290}
-  projectileSpeed: 12
+  projectileSpeed: 20
 --- !u!114 &4383249739688585045
 MonoBehaviour:
   m_ObjectHideFlags: 0
