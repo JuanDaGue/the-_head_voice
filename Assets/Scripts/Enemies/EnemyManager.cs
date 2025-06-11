@@ -2,26 +2,31 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class EnemySpawnData
+{
+    [Tooltip("Enemy Prefab reference")]
+    public GameObject enemyPrefab;
+    
+    [Tooltip("Number of enemies of this type to spawn")]
+    public int enemyCount;
+}
+
 public class EnemyManager : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public GameObject bombEnemyPrefab;
-    public GameObject attackEnemyPrefab;
+    [Header("Enemy Types")]
+    [Tooltip("List of enemy types and the count to spawn for each type")]
+    public List<EnemySpawnData> enemySpawnList = new List<EnemySpawnData>();
 
     [Header("Spawn Settings")]
     public Transform[] spawnPoints;
-    public int bombEnemyCount = 2;
-    public int attackEnemyCount = 2;
     public float spawnInterval = 10f;
     public int maxEnemies = 10;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
 
-    void Start()
+    private void Start()
     {
-        SpawnEnemies(bombEnemyPrefab, bombEnemyCount);
-        SpawnEnemies(attackEnemyPrefab, attackEnemyCount);
-
         StartCoroutine(SpawnEnemiesRoutine());
     }
 
@@ -30,45 +35,42 @@ public class EnemyManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnInterval);
+            CleanUpNullEnemies();
 
-            CleanUpNullEnemies(); // Remove destroyed ones
-
+            // Check if we can spawn more
             if (activeEnemies.Count >= maxEnemies) continue;
 
-            if (bombEnemyPrefab != null)
+            foreach (EnemySpawnData spawnData in enemySpawnList)
             {
-                SpawnEnemies(bombEnemyPrefab, bombEnemyCount);
-            }
-            else
-            {
-                Debug.LogError("Bomb Enemy Prefab is missing!");
-            }
+                // Check if prefab is set
+                if (spawnData.enemyPrefab == null)
+                {
+                    Debug.LogError("Missing enemy prefab in enemySpawnList!");
+                    continue;
+                }
 
-            if (attackEnemyPrefab != null)
-            {
-                SpawnEnemies(attackEnemyPrefab, attackEnemyCount);
-            }
-            else
-            {
-                Debug.LogError("Attack Enemy Prefab is missing!");
+                // Determine how many of this type to spawn without exceeding maxEnemies
+                int spawnableCount = Mathf.Min(spawnData.enemyCount, maxEnemies - activeEnemies.Count);
+
+                for (int i = 0; i < spawnableCount; i++)
+                {
+                    if (spawnPoints.Length == 0)
+                    {
+                        Debug.LogError("No spawn points set!");
+                        yield break;
+                    }
+                    
+                    // Select random spawn point
+                    Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                    GameObject enemy = Instantiate(spawnData.enemyPrefab, sp.position, sp.rotation);
+
+                    activeEnemies.Add(enemy);
+                }
             }
         }
     }
 
-    void SpawnEnemies(GameObject prefab, int count)
-    {
-        int spawnableCount = Mathf.Min(count, maxEnemies - activeEnemies.Count);
-
-        for (int i = 0; i < spawnableCount; i++)
-        {
-            if (spawnPoints.Length == 0) return;
-
-            Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            GameObject enemy = Instantiate(prefab, sp.position, sp.rotation);
-            activeEnemies.Add(enemy);
-        }
-    }
-
+    // Remove destroyed (null) enemies from the active list.
     void CleanUpNullEnemies()
     {
         activeEnemies.RemoveAll(e => e == null);

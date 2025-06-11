@@ -14,7 +14,7 @@ public class Portal : Bullet
     void Update(){
         if (transform.position.y < minHeightY)
         {
-            Debug.LogWarning("Portal is too low! Adjusting position...");
+            //Debug.LogWarning("Portal is too low! Adjusting position...");
             transform.position = new Vector3(transform.position.x, minHeightY, transform.position.z);
         }   
     }

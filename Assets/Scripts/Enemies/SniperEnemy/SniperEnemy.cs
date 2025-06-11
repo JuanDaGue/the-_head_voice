@@ -10,21 +10,28 @@ public class SniperEnemy : Enemy
     public float zoomedFOV = 30f;    // optional: camera‐zoom effect  
     public float unzoomedFOV = 60f;
 
-    protected override void DoAttack()
-    {
-        if (bulletPrefab == null || firePoint == null) return;
+protected override void DoAttack()
+{
+    if (bulletPrefab == null || firePoint == null) return;
 
-        // Raycast to ensure clear line-of-sight
-        RaycastHit hit;
-        Vector3 dir = (player.position + Vector3.up * 1.2f - firePoint.position).normalized;
-        if (Physics.Raycast(firePoint.position, dir, out hit, attackRange))
-        {
-            // Instantiate and fire bullet
-            GameObject b = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(dir));
-            if (b.TryGetComponent<Rigidbody>(out var rb))
-                rb.linearVelocity = dir * bulletSpeed;
-        }
-    }
+    // Calculate direction from the firePoint to the player's head level
+    Vector3 dir = (player.position + Vector3.up * 1.2f - firePoint.position).normalized;
+
+    // Optional: draw ray to debug
+    Debug.DrawRay(firePoint.position, dir * attackRange, Color.red, 1f);
+
+    // Instantiate and fire bullet regardless of raycast hit
+    GameObject b = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(dir));
+    Bullet bullet = b.GetComponent<Bullet>();
+    if (bullet != null) bullet.speed = bulletSpeed;
+    bullet.damage = attackPower; // Set damage for bullet logic
+    bullet.direction = dir; // Set bullet direction
+
+    Rigidbody rb = b.GetComponent<Rigidbody>();
+    if (rb != null) rb.linearVelocity = dir * bulletSpeed;
+
+    Debug.Log("Fired " + bulletSpeed + " " + bulletPrefab.name + " Dir " + dir);
+}
 
     protected override void Update()
     {

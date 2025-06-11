@@ -64,9 +64,6 @@ PrefabInstance:
       addedObject: {fileID: -283801592805995831}
     - targetCorrespondingSourceObject: {fileID: 389821699222927281, guid: 856f1f18fb8861d4499813c38a5963ae, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6822818548735621311}
-    - targetCorrespondingSourceObject: {fileID: 389821699222927281, guid: 856f1f18fb8861d4499813c38a5963ae, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -6003209323832002402}
     - targetCorrespondingSourceObject: {fileID: 389821699222927281, guid: 856f1f18fb8861d4499813c38a5963ae, type: 3}
       insertIndex: -1
@@ -122,20 +119,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6822818548735621311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7293012263426145516}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e62d3760bade5a4c9294aae0eb11c2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 30
-  destroyDelay: 0.2
 --- !u!54 &-6003209323832002402
 Rigidbody:
   m_ObjectHideFlags: 0
