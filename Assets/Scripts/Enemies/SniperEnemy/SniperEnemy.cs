@@ -15,7 +15,7 @@ protected override void DoAttack()
     if (bulletPrefab == null || firePoint == null) return;
 
     // Calculate direction from the firePoint to the player's head level
-    Vector3 dir = (player.position + Vector3.up * 1.2f - firePoint.position).normalized;
+    Vector3 dir = (player.position + Vector3.up  - firePoint.position).normalized;
 
     // Optional: draw ray to debug
     Debug.DrawRay(firePoint.position, dir * attackRange, Color.red, 1f);
@@ -30,7 +30,7 @@ protected override void DoAttack()
     Rigidbody rb = b.GetComponent<Rigidbody>();
     if (rb != null) rb.linearVelocity = dir * bulletSpeed;
 
-    Debug.Log("Fired " + bulletSpeed + " " + bulletPrefab.name + " Dir " + dir);
+    //Debug.Log("Fired " + bulletSpeed + " " + bulletPrefab.name + " Dir " + dir);
 }
 
     protected override void Update()
