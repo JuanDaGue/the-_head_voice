@@ -130,7 +130,8 @@ MonoBehaviour:
   damage: 10
   lifetime: 5
   direction: {x: 0, y: 0, z: 0}
-  minHeightY: 2
+  minHeightY: 7
+  playerOffset: 2
 --- !u!54 &6257561017937859166
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ Rigidbody:
     serializedVersion: 2
     m_Bits: 0
   m_ImplicitCom: 1
-  m_ImplicitTensor: 1
+  m_ImplicitTensor: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
