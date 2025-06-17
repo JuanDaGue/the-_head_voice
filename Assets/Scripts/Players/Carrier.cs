@@ -5,17 +5,22 @@ public class Carrier : MonoBehaviour
 
 
     [Header("Health System")]
-    [SerializeField] protected LifeSystem vidaSystem;
-    
+    [SerializeField] protected LifeSystem lifeSystem;
+    [SerializeField] private GameOverManager gameOverUI;
+
+    void Start()
+{
+    lifeSystem.OnDeath.AddListener(gameOverUI.ShowGameOverScreen);
+}
     public virtual void TakeDamage(float damage)
     {
-        vidaSystem.TakeDamage(damage);
+        lifeSystem.TakeDamage(damage);
     }
 
     public virtual void Heal(float amount)
     {
-        vidaSystem.Heal(amount);
+        lifeSystem.Heal(amount);
     }
 
-    public bool IsAlive => vidaSystem.Current > vidaSystem.Min;
+    public bool IsAlive => lifeSystem.Current > lifeSystem.Min;
 }

@@ -19,7 +19,8 @@ public class MainMenuUIManager : MonoBehaviour
     [Header("System Settings")]
     [Range(0f, 1f)] public float memoryCorruption = 0.45f; // 45% corrupted
     public bool systemUnstable = true;
-
+    public SceneFader sceneFader;
+    public SettingsPanelController settingsController;
     void Start()
     {
         UpdateUI();
@@ -50,11 +51,19 @@ public class MainMenuUIManager : MonoBehaviour
 
     // ===== BUTTON FUNCTIONS =====
 
-    public void OnNewGame()
+    public void OnNewGame(string sceneName)
     {
         Debug.Log("Starting new game...");
         // Replace with your scene name
-        SceneManager.LoadScene("GameScene"); 
+        if (sceneFader != null)
+        {
+            sceneFader.FadeToScene(sceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        
     }
 
     public void OnContinue()
@@ -63,15 +72,14 @@ public class MainMenuUIManager : MonoBehaviour
         // Load saved data here
     }
 
-    public void OnSettings()
-    {
-        Debug.Log("Open Settings...");
-        // Open settings panel
-    }
-
     public void OnExit()
     {
         Debug.Log("Exiting game...");
         Application.Quit();
     }
+    public void OnSettings()
+{
+    Debug.Log("Open Settings...");
+    settingsController.OpenSettings();
+}
 }

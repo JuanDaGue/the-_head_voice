@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
-
 public class LoadingScreenManager : MonoBehaviour
 {
     [Header("UI Elements")]
@@ -20,9 +20,11 @@ public class LoadingScreenManager : MonoBehaviour
 
     private float loadingProgress = 0f;
     private int currentCarouselIndex = 0;
+    public SceneFader sceneFader;
 
     void Start()
     {
+
         titleText.text = "VOID";
         subtitleText.text = "Loading nightmare...";
         warningText.text = "";
@@ -45,6 +47,15 @@ public class LoadingScreenManager : MonoBehaviour
         loadingPercentageText.text = "100%";
         subtitleText.text = "Loading existential dread...";
         warningText.text = "<color=red>WARNING: PSYCHOLOGICAL DAMAGE IMMINENT</color>";
+        if (sceneFader != null)
+        {
+            sceneFader.FadeToScene("PantanoLevel");
+        }
+        else
+        {
+            Debug.Log("Loading next scene: PantanoLevel");
+            NextScene("PantanoLevel");
+        }
     }
 
     IEnumerator CarouselTextUpdate()
@@ -67,5 +78,13 @@ public class LoadingScreenManager : MonoBehaviour
         int hope = Mathf.Clamp(Mathf.RoundToInt(10f * loadingProgress), 0, 10);
 
         statsText.text = $"MEMORY: {mem}%   SANITY: {sanity}%   HOPE: {hope}%";
+    }
+
+    private void NextScene(string nameScene)
+    {
+        // Load the next scene here
+        // Example: SceneManager.LoadScene("NextSceneName");
+        Debug.Log("Loading next scene...");
+        SceneManager.LoadScene(nameScene);
     }
 }

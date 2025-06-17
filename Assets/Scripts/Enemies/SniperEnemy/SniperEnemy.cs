@@ -15,7 +15,7 @@ protected override void DoAttack()
     if (bulletPrefab == null || firePoint == null) return;
 
     // Calculate direction from the firePoint to the player's head level
-    Vector3 dir = (player.position + Vector3.up  - firePoint.position).normalized;
+    Vector3 dir = (player.position  - firePoint.position).normalized;
 
     // Optional: draw ray to debug
     Debug.DrawRay(firePoint.position, dir * attackRange, Color.red, 1f);
