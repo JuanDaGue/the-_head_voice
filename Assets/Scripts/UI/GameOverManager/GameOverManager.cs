@@ -39,7 +39,7 @@ public class GameOverManager : MonoBehaviour
             gameOverUI.SetActive(true);
     }
 
-    public void OnRestart()
+    public void OnRestart(string sceneName)
     {
         if (sceneFader != null)
         {
@@ -49,7 +49,7 @@ public class GameOverManager : MonoBehaviour
         {
             Time.timeScale = 1f; // Ensure time resumes
             Debug.Log("Loading current scene: " + SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Replace with your scene
+            SceneManager.LoadScene(sceneName); // Replace with your scene
         }
         // Time.timeScale = 1f;
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -27,4 +27,14 @@ public class DialogueTrigger : MonoBehaviour
             enabled = false;
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        // Aquí podrías manejar la lógica al salir del trigger, si es necesario
+        // Por ejemplo, podrías reactivar el trigger si quieres que se pueda volver a activar
+        // enabled = true;
+        if (other.CompareTag("Player"))
+        {
+            Destroy(gameObject); // Destruye el objeto del trigger al salir
+        }
+    }
 }

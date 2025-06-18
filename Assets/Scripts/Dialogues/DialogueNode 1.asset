@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: DialogueNode 1
   m_EditorClassIdentifier: 
   speakerName: La Abuela
-  dialogueText: "\u201CLucy, hija m\xEDa\u2026, tu coraz\xF3n ha cargado demasiado
-    dolor de abandono.\nHoy te mostrar\xE9 el camino hacia tu valor interior.\u201D"
-  missionTitle: 
-  missionDescription: 
+  dialogueText: "\u201CPara enfrentar tu miedo al abandono, debes adentrarte en el
+    Pantano del Abandono.\nAll\xED emerger\xE1n criaturas acu\xE1ticas que reflejan
+    tus memorias m\xE1s dolorosas.\u201D"
+  missionTitle: "Misi\xF3n: Explora el Pantano del Abandono"
+  missionDescription: "\u201CCamina hasta el centro del pantano y derrota a la Sombra
+    Materna.\nSolo as\xED romper\xE1s el eco de tu vac\xEDo interior"
   voiceClip: {fileID: 0}
