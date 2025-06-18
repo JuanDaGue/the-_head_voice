@@ -337,7 +337,13 @@ MonoBehaviour:
   carouselText: {fileID: 1290107871}
   statsText: {fileID: 1168206178}
   warningText: {fileID: 1610543381}
-  historyTexts: []
+  historyTexts:
+  - "Lucy, cuando era ni\xF1a, vivi\xF3 el abandono de su madre como un fr\xEDo abismo:
+    largas noches en vela, preguntas sin respuesta y un vac\xEDo que nunca cicatriz\xF3
+    por completo.\""
+  - "Lucy, cuando era ni\xF1a, vivi\xF3 el abandono de su madre como un fr\xEDo abismo:
+    largas noches en vela, preguntas sin respuesta y un vac\xEDo que nunca cicatriz\xF3
+    por completo.\""
   carouselInterval: 5
   sceneFader: {fileID: 416305160}
 --- !u!114 &479149302
