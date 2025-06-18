@@ -19,6 +19,10 @@ public class GunUIManager : MonoBehaviour
     [Header("Weapon Selection")]
     public List<Button> weaponButtons;
     private GunManager gunManager;
+    [Header("Player Life System")]
+    public LifeSystem lifeSystemPlayer;
+    public Image lifeBar;
+
     void Start()
     {
         gunManager = FindFirstObjectByType<GunManager>();
@@ -28,6 +32,7 @@ public class GunUIManager : MonoBehaviour
     void Update()
     {
         UpdateGunUI();
+        UpdateHealthBar();
     }
     void SetupWeaponButtons()
     {
@@ -38,9 +43,9 @@ public class GunUIManager : MonoBehaviour
             weaponButtons[i].GetComponentInChildren<Image>().color = new Color32(85, 85, 85, 255); // Gray background
             weaponButtons[i].GetComponentInChildren<Image>().sprite = gunManager.guns[i].weaponIcon;
             weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = gunManager.guns[i].weaponName;
-            weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().fontSize = 30;
+            weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().fontSize = 24;
             weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
-            
+
         }
     }
     void UpdateGunUI()
@@ -59,4 +64,10 @@ public class GunUIManager : MonoBehaviour
         ammoText.text = $"{gunManager.GetAmmoInClip()} / {gun.clipSize}";
         reloadSlider.value = 1 - gunManager.GetReloadProgress();
     }
+    
+        void UpdateHealthBar()
+    {
+        lifeBar.fillAmount = lifeSystemPlayer.Current / lifeSystemPlayer.Max;
+    }
+
 }

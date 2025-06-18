@@ -54,7 +54,7 @@ public class ItemManager : MonoBehaviour
         float roll = Random.value;
         if (roll > spawnProbability)
         {
-            Debug.Log("No item spawned (roll failed).");
+            //Debug.Log("No item spawned (roll failed).");
             return;
         }
 
@@ -62,7 +62,7 @@ public class ItemManager : MonoBehaviour
         ItemPrefab selectedItem = items[randomIndex];
 
         Instantiate(selectedItem, position, Quaternion.identity);
-        Debug.Log($"Random item spawned at {position}: {selectedItem.name}");
+        //Debug.Log($"Random item spawned at {position}: {selectedItem.name}");
     }
 
     /// <summary>
