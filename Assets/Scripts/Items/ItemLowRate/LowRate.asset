@@ -15,6 +15,14 @@ MonoBehaviour:
   damageMultiplier: 1
   fireRateMultiplier: 0.5
   projectileSpeedMultiplier: 1
+  clipSizeMultiplier: 1
+  reloadTimeMultiplier: 1
   damageBonus: 0
   fireRateBonus: 0
   projectileSpeedBonus: 0
+  clipSizeBonus: 0
+  reloadTimeBonus: 0
+  itemName: FireRate
+  itemDescription: 'reduce el cooldown de las armas '
+  itemIcon: {fileID: 21300000, guid: 873795b56bda20f4da250ba97a8e9c5e, type: 3}
+  itemColor: {r: 0.4039216, g: 0.3019608, b: 0.1764706, a: 0}

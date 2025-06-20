@@ -15,6 +15,14 @@ MonoBehaviour:
   damageMultiplier: 2
   fireRateMultiplier: 1
   projectileSpeedMultiplier: 1
+  clipSizeMultiplier: 1
+  reloadTimeMultiplier: 1
   damageBonus: 0
-  fireRateBonus: 0
+  fireRateBonus: -0.5
   projectileSpeedBonus: 0
+  clipSizeBonus: 0
+  reloadTimeBonus: 0
+  itemName: DobbleAttack
+  itemDescription: "duplica el da\xF1o de tus disparos."
+  itemIcon: {fileID: 21300000, guid: efa6570158ce5ee42be2aaa678220d48, type: 3}
+  itemColor: {r: 0.18431373, g: 0.21176472, b: 0.28627452, a: 1}

@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using System.Collections;
+using System.Linq;
 [RequireComponent(typeof(LineRenderer))]
 public class GunManager : MonoBehaviour
 {
-    [Header("Weapon Assets")]
-    public List<GunBase> guns;
+    [Header("Todas las armas disponibles")]
+    public List<GunBase> allGuns;    // Lista maestra con todas las armas del juego
+
+    [Header("Armas que podrá usar el jugador")]
+    public List<GunBase> guns; 
 
     [Header("Fire Point")]
     public Transform firePoint;
@@ -19,13 +23,41 @@ public class GunManager : MonoBehaviour
     private Camera playerCamera;
     private LineRenderer lineRenderer;
     private GunBase activeGun;
-
+    
     private float cooldownTimer = 0f;
     private float reloadTimer = 0f;
     private bool isReloading = false;
     private int ammoInClip = 0;
 
+
+
     private GameObject gunModelInstance;
+
+    [Header("Switch Settings")]
+    public float switchGunTime = 0.5f;
+    private bool isSwitching = false;
+    private int activeGunIndex = -1;
+
+    public int MaxGuns = 2;
+
+        void Awake()
+    {
+        // Cada vez que se cargue el GunManager, seleccionamos entre 1 y 2 armas al azar
+        SelectRandomGuns();
+    }
+
+    private void SelectRandomGuns()
+    {
+        int maxPosibles = Mathf.Min(MaxGuns, allGuns.Count);
+        int numeroDeArmas = Random.Range(1, maxPosibles + 1); // 1 ó 2
+
+        // Con LINQ: barajea y toma las primeras n
+        guns = allGuns
+            .OrderBy(_ => Random.value)
+            .Take(numeroDeArmas)
+            .ToList();
+
+    }
 
     void Start()
     {
@@ -36,7 +68,7 @@ public class GunManager : MonoBehaviour
             inventory = GetComponent<ItemInventory>();
 
         if (guns.Count > 0)
-            EquipGun(0);
+            EquipGun(Random.Range(0, guns.Count));
     }
 
     void Update()
@@ -62,7 +94,7 @@ public class GunManager : MonoBehaviour
     void HandleInput()
     {
         // Fire
-        if ((Input.GetKey(KeyCode.E) || Input.GetMouseButton(0)) && cooldownTimer <= 0f && ammoInClip > 0)
+        if ( Input.GetMouseButton(0) && cooldownTimer <= 0f && ammoInClip > 0)
         {
             ApplyBuffsToActiveGun();
             activeGun.Fire(firePoint, playerCamera, lineRenderer);
@@ -79,18 +111,30 @@ public class GunManager : MonoBehaviour
 
     void SwitchGuns()
     {
-        for (int i = 0; i < guns.Count; i++)
+        for (int i = 0; i < guns.Count && i < 9; i++)
         {
-            if (Input.GetKeyDown(guns[i].activationKey))
+            //Debug.Log(KeyCode.Alpha1 + i);
+            if (i != activeGunIndex && Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                EquipGun(i);
+                // Inicia la rutina de cambio
+                StartCoroutine(DelayedEquip(i));
                 break;
             }
         }
     }
 
+
+    IEnumerator DelayedEquip(int index)
+    {
+        isSwitching = true;
+        // (Opcional) aquí podrías reproducir animación de sacar/guardar arma
+        yield return new WaitForSeconds(switchGunTime);
+        EquipGun(index);
+        isSwitching = false;
+    }
     void EquipGun(int index)
     {
+        if (index < 0 || index >= guns.Count) return;
         // Destroy previous gun model
         if (gunModelInstance != null)
         {
@@ -100,7 +144,7 @@ public class GunManager : MonoBehaviour
         // Assign and reset gun stats
         activeGun = guns[index];
         activeGun.ResetRuntimeStats();
-
+        activeGunIndex = index;
         // Instantiate new gun model
         if (activeGun.gunModelPrefab != null && gunSpawnModel != null)
         {

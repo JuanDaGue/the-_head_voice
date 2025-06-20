@@ -883,7 +883,7 @@ MonoBehaviour:
   - {fileID: 1084715909}
   - {fileID: 2071284333}
   lifeSystemPlayer: {fileID: 686179830}
-  lifeBar: {fileID: 1893135742}
+  lifeBar: {fileID: 906496770}
 --- !u!114 &379316013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3731,6 +3731,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1391814942}
     m_Modifications:
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1645749708}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: guns.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: allGuns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: 'allGuns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a842fd936c95d644a9c2ff1d0e737da7, type: 2}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: 'allGuns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 78464035067ab4e4c81b5c8a74a83643, type: 2}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: 'allGuns.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 953b6cac1fda98948b2c3341ea233da3, type: 2}
     - target: {fileID: 3552204873753740867, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
@@ -4941,6 +4965,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1387869568}
   m_SourcePrefab: {fileID: 100100000, guid: f2e7413949f61484d82fb65b2dab0311, type: 3}
+--- !u!114 &1645749708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 285379469253495177, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+  m_PrefabInstance: {fileID: 1286515325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96e7fe427263524bbeb13d6bc3d6b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1655579219
 GameObject:
   m_ObjectHideFlags: 0

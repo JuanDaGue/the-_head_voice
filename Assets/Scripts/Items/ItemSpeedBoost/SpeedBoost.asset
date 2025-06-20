@@ -16,7 +16,13 @@ MonoBehaviour:
   fireRateMultiplier: 0.8
   projectileSpeedMultiplier: 2
   clipSizeMultiplier: 1
+  reloadTimeMultiplier: 1
   damageBonus: 5
   fireRateBonus: 0
   projectileSpeedBonus: 5
   clipSizeBonus: 0
+  reloadTimeBonus: 0
+  itemName: SpeedBoost
+  itemDescription: Incrementa el alcance y velicidad de las balas
+  itemIcon: {fileID: 21300000, guid: ef7593c8c8730cf4a8ac93185f7464c3, type: 3}
+  itemColor: {r: 0.90196085, g: 0.20392159, b: 0.20392159, a: 0}

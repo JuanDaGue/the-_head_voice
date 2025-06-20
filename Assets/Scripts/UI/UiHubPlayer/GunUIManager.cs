@@ -19,35 +19,50 @@ public class GunUIManager : MonoBehaviour
     [Header("Weapon Selection")]
     public List<Button> weaponButtons;
     private GunManager gunManager;
+
+    private ItemInventory inventory;
     [Header("Player Life System")]
     public LifeSystem lifeSystemPlayer;
     public Image lifeBar;
 
+
     void Start()
     {
         gunManager = FindFirstObjectByType<GunManager>();
-        SetupWeaponButtons();
+        inventory = FindFirstObjectByType<ItemInventory>();
+        if (inventory.equippedItems.Count != 0) SetupWeaponButtons();
     }
 
     void Update()
     {
         UpdateGunUI();
         UpdateHealthBar();
+        SetupWeaponButtons();
     }
-    void SetupWeaponButtons()
+void SetupWeaponButtons()
+{
+    int count = Mathf.Min(weaponButtons.Count, inventory.equippedItems.Count);
+    for (int i = 0; i < count; i++)
     {
-        for (int i = 0; i < weaponButtons.Count; i++)
-        {
-            int index = i;
-            weaponButtons[i].onClick.AddListener(() => gunManager.SendMessage("EquipGun", index));
-            weaponButtons[i].GetComponentInChildren<Image>().color = new Color32(85, 85, 85, 255); // Gray background
-            weaponButtons[i].GetComponentInChildren<Image>().sprite = gunManager.guns[i].weaponIcon;
-            weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = gunManager.guns[i].weaponName;
-            weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().fontSize = 24;
-            weaponButtons[i].GetComponentInChildren<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
+        int index = i;
+        var btn = weaponButtons[i];
+        var item = inventory.equippedItems[i];
 
-        }
+        //btn.onClick.AddListener(() => gunManager.EquipGun(index));
+        btn.GetComponentInChildren<Image>().color = new Color32(85, 85, 85, 255);
+        btn.GetComponentInChildren<Image>().sprite = item.itemIcon;
+        var label = btn.GetComponentInChildren<TextMeshProUGUI>();
+        label.text = item.itemName;
+        label.fontSize = 24;
+        label.alignment = TextAlignmentOptions.Center;
+        btn.gameObject.SetActive(true);
     }
+
+    // Desactiva los botones sobrantes (si hay más botones que armas)
+    for (int j = count; j < weaponButtons.Count; j++)
+        weaponButtons[j].gameObject.SetActive(false);
+}
+
     void UpdateGunUI()
     {
         var gun = gunManager.GetActiveGun();

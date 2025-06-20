@@ -18,4 +18,10 @@ public class WeaponBuffItem : ScriptableObject
     public float projectileSpeedBonus = 0f;
     public int clipSizeBonus = 0;
     public float reloadTimeBonus = 0f;
+
+    public string itemName = "New Weapon Buff Item";
+    public string itemDescription = "Description of the weapon buff item.";
+    public Sprite itemIcon;
+    public Color itemColor;
+
 }

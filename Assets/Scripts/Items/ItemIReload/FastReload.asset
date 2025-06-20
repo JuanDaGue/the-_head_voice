@@ -22,3 +22,7 @@ MonoBehaviour:
   projectileSpeedBonus: 0
   clipSizeBonus: 0
   reloadTimeBonus: 0
+  itemName: FastReload
+  itemDescription: Reduce el tiempo de recarga de tus armas al instante.
+  itemIcon: {fileID: 21300000, guid: ed193c12f1a484e47b2c2e2cf257a114, type: 3}
+  itemColor: {r: 0.26666668, g: 0.18039216, b: 0.43529415, a: 0}
