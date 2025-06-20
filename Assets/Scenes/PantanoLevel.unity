@@ -6534,6 +6534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 1217683244}
+  storyText: {fileID: 0}
   storyChunks: []
   delay: 6
   sceneFader: {fileID: 88651274}
@@ -7849,6 +7850,17 @@ Light:
   m_CorrespondingSourceObject: {fileID: 4498951474433963220, guid: a5252545efd5baf4abb2f5d31460bc98, type: 3}
   m_PrefabInstance: {fileID: 642663673}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1463931449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 285379469253495177, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+  m_PrefabInstance: {fileID: 7845876046725700217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96e7fe427263524bbeb13d6bc3d6b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1480627550
 GameObject:
   m_ObjectHideFlags: 0
@@ -11969,6 +11981,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1660239401}
     m_Modifications:
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1463931449}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: allGuns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: 'allGuns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a842fd936c95d644a9c2ff1d0e737da7, type: 2}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: 'allGuns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 78464035067ab4e4c81b5c8a74a83643, type: 2}
+    - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: 'allGuns.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 953b6cac1fda98948b2c3341ea233da3, type: 2}
     - target: {fileID: 3552204873753740867, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
