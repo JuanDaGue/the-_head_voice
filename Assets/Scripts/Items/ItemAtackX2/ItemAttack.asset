@@ -18,7 +18,7 @@ MonoBehaviour:
   clipSizeMultiplier: 1
   reloadTimeMultiplier: 1
   damageBonus: 0
-  fireRateBonus: -0.5
+  fireRateBonus: 0.5
   projectileSpeedBonus: 0
   clipSizeBonus: 0
   reloadTimeBonus: 0
