@@ -15,15 +15,32 @@ public class GameOverManager : MonoBehaviour
     public float delay = 6f;
     private bool isPaused = false;
 
+    [Header("References to player")]
+    private FirstPersonController playerController; // Reference to the player controller to pause movement
+    private GunManager gunManager; // Reference to the gun manager, if needed
+    public GameObject player; // Reference to the player GameObject, if needed
+    
+
+    [Header("Scene Fader")]
     public SceneFader sceneFader;
 
     void Update()
     {
+        Debug.Log("IsPause" + isPaused);
         if (!gameOverUI.activeSelf) return;
 
         timer += Time.unscaledDeltaTime;
         isPaused = true;
+        gunManager.isPaused= isPaused; // Pause gun manager if needed
+        Debug.Log("GameOverManager Update called. IsPaused: " + gunManager.isPaused);
         SetCursorState(isPaused);
+        if (isPaused)
+        {
+            playerController.cameraCanMove=false; // Disable player movement
+        }
+        else         {
+            playerController.cameraCanMove=true; // Enable player movement
+        }
 
         if (timer >= delay)
         {
@@ -38,6 +55,13 @@ public class GameOverManager : MonoBehaviour
 
     private void Start()
     {
+        playerController = player.GetComponent<FirstPersonController>();
+        gunManager = player.GetComponentInChildren<GunManager>();
+        if (gunManager == null)
+        {
+            Debug.LogError("GunManager not found in player GameObject. Please assign it in the inspector.");
+        }
+        Debug.Log("GameOverManager Start called. PlayerController: " + playerController + ", GunManager: " + gunManager);
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
 

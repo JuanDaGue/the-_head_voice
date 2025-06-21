@@ -28,7 +28,7 @@ public class GunManager : MonoBehaviour
     private float reloadTimer = 0f;
     private bool isReloading = false;
     private int ammoInClip = 0;
-
+    public bool isPaused = false;
 
 
     private GameObject gunModelInstance;
@@ -94,7 +94,7 @@ public class GunManager : MonoBehaviour
     void HandleInput()
     {
         // Fire
-        if ( Input.GetMouseButton(0) && cooldownTimer <= 0f && ammoInClip > 0)
+        if ( Input.GetMouseButton(0) && cooldownTimer <= 0f && ammoInClip > 0 && !isPaused)
         {
             ApplyBuffsToActiveGun();
             activeGun.Fire(firePoint, playerCamera, lineRenderer);
@@ -103,7 +103,7 @@ public class GunManager : MonoBehaviour
         }
 
         // Reload
-        if (Input.GetKeyDown(KeyCode.R) && !isReloading && ammoInClip < activeGun.clipSize)
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading && ammoInClip < activeGun.clipSize && !isPaused)
         {
             StartReload();
         }

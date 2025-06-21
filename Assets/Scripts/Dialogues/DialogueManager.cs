@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -17,6 +18,18 @@ public class DialogueManager : MonoBehaviour
     private DialogueNode[] nodes;
     private int currentIndex = 0;
     private bool isPaused = false;
+
+    [Header("References to player")]
+    private FirstPersonController playerController; // Reference to the player controller to pause movement
+    private GunManager gunManager; // Reference to the gun manager, if needed
+    public GameObject player; // Reference to the player GameObject, if needed
+    private void Start()
+    {
+        playerController = player.GetComponent<FirstPersonController>();
+        gunManager = player.GetComponentInChildren<GunManager>();
+
+    }
+
 
     private void Awake()
     {
@@ -37,6 +50,9 @@ public class DialogueManager : MonoBehaviour
         SetCursorState(isPaused);
         DisplayNode(nodes[currentIndex]);
         Time.timeScale = 0f;
+        gunManager.isPaused = isPaused; // Pause gun manager if needed
+        playerController.cameraCanMove = !isPaused; // Disable player movement
+
     }
 
     private void DisplayNode(DialogueNode node)
@@ -74,6 +90,8 @@ public class DialogueManager : MonoBehaviour
         SetCursorState(isPaused);
         Time.timeScale = 1f;
         // TODO: trigger mission activation or next game event
+        gunManager.isPaused = isPaused; // Pause gun manager if needed
+        playerController.cameraCanMove = !isPaused;
     }
     
     void SetCursorState(bool showCursor)
