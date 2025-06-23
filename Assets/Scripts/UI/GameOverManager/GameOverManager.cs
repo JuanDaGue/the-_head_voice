@@ -61,7 +61,7 @@ public class GameOverManager : MonoBehaviour
         {
             Debug.LogError("GunManager not found in player GameObject. Please assign it in the inspector.");
         }
-        Debug.Log("GameOverManager Start called. PlayerController: " + playerController + ", GunManager: " + gunManager);
+        //Debug.Log("GameOverManager Start called. PlayerController: " + playerController + ", GunManager: " + gunManager);
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
 

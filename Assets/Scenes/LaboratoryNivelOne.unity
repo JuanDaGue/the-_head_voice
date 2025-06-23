@@ -1780,7 +1780,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3596195559281025495, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
   m_PrefabInstance: {fileID: 1286515325}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1625966970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f35a02689e409ff41b60b1c79b3d982d, type: 3}
@@ -2843,6 +2843,7 @@ MonoBehaviour:
   storyText: {fileID: 1009663396}
   storyChunks: []
   delay: 6
+  player: {fileID: 1625966970}
   sceneFader: {fileID: 1367470284}
 --- !u!114 &971298555
 MonoBehaviour:
@@ -3741,12 +3742,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
       propertyPath: allGuns.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
       propertyPath: 'allGuns.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: a842fd936c95d644a9c2ff1d0e737da7, type: 2}
+      objectReference: {fileID: 11400000, guid: 57ef8ee11fe9a21439beb41e315f8259, type: 2}
     - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
       propertyPath: 'allGuns.Array.data[1]'
       value: 
@@ -4874,6 +4875,11 @@ MonoBehaviour:
   - {fileID: 3921850297450435994, guid: 33d30e77a01255245bfcaee5aa38df97, type: 3}
   spawnProbability: 0.5
   defaultSpawnPoint: {fileID: 1625646823}
+--- !u!1 &1625966970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3552204873753740867, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+  m_PrefabInstance: {fileID: 1286515325}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1628036935
 GameObject:
   m_ObjectHideFlags: 0

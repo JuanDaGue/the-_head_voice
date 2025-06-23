@@ -58,6 +58,12 @@ public class Portal : Bullet
             Debug.Log("Portal triggered by Enemy");
             // Start the absorption animation before destroying the enemy.
             StartCoroutine(AbsorbEnemy(other.gameObject));
+            LifeSystem enemyLife = other.GetComponent<LifeSystem>();
+            if (enemyLife != null)
+            {
+                // Optionally, you can handle the enemy's life system here.
+                enemyLife.TakeDamage(enemyLife.Current); // Destroy the enemy by taking all its health.
+            }
         }
     }
 
@@ -100,9 +106,9 @@ public class Portal : Bullet
         }
 
         // After the animation, ensure the enemy still exists before destroying.
-        if (enemy != null)
-        {
-            Destroy(enemy);
-        }
+        // if (enemy != null)
+        // {
+        //     Destroy(enemy);
+        // }
     }
 }

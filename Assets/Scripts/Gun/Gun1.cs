@@ -16,7 +16,7 @@ public class Gun1 : GunBase
 
         // Ensure gravity is enabled
         //rb.useGravity = true;
-        rb.mass = 1f; // tweak if you like
+        //rb.mass = 1f; // tweak if you like
 
         // Compute initial velocity vector
         Vector3 dir = playerCamera.transform.forward;
