@@ -12,7 +12,7 @@ public class GunManager : MonoBehaviour
     public List<GunBase> guns; 
 
     [Header("Fire Point")]
-    public Transform firePoint;
+    private Transform firePoint;
 
     [Header("Gun Model Spawn Point")]
     public Transform gunSpawnModel;
@@ -40,10 +40,13 @@ public class GunManager : MonoBehaviour
 
     public int MaxGuns = 2;
 
-        void Awake()
+    void Awake()
     {
         // Cada vez que se cargue el GunManager, seleccionamos entre 1 y 2 armas al azar
         SelectRandomGuns();
+        
+
+
     }
 
     private void SelectRandomGuns()
@@ -69,6 +72,11 @@ public class GunManager : MonoBehaviour
 
         if (guns.Count > 0)
             EquipGun(Random.Range(0, guns.Count));
+        firePoint = gunModelInstance.transform.Find("Launch");
+        if (firePoint == null)
+        {
+            Debug.LogError("Fire Point not found! Please assign a Fire Point in the GunManager.");
+        }      
     }
 
     void Update()
@@ -152,6 +160,11 @@ public class GunManager : MonoBehaviour
             gunModelInstance.transform.localPosition = Vector3.zero;
             //gunModelInstance.transform.localRotation = Quaternion.identity;
             // gunModelInstance.transform.localScale = Vector3.one;
+            firePoint = gunModelInstance.transform.Find("Launch");
+            if (firePoint == null)
+            {
+                Debug.LogError("Fire Point not found! Please assign a Fire Point in the GunManager.");
+            }
         }
 
         ApplyBuffsToActiveGun();

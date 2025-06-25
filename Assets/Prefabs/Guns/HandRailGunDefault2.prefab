@@ -347,12 +347,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2676619249478483923}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.38, y: 0.14, z: -0.547}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.3721, y: -0.0575, z: 0.022}
+  m_LocalScale: {x: 0.19999993, y: 0.19999996, z: 0.19999996}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1169537045956845484}
+  m_Father: {fileID: 2434113169758997828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4656386460387966419
 GameObject:
@@ -901,6 +901,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3802730493706340080}
   - {fileID: 4385437932560557550}
   - {fileID: 7491985884504924789}
   - {fileID: 6475921172379014928}
@@ -1002,7 +1003,6 @@ Transform:
   m_Children:
   - {fileID: 3061501950390798432}
   - {fileID: 2434113169758997828}
-  - {fileID: 3802730493706340080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 85.705, z: 0}
 --- !u!120 &4279660950449909584
@@ -1124,11 +1124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79fa5edf0010ec48b5aa3103ea66a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allGuns: []
   guns:
   - {fileID: 11400000, guid: dfb09c387c0668949bdb02b2babc4f6e, type: 2}
   firePoint: {fileID: 0}
   gunSpawnModel: {fileID: 0}
   inventory: {fileID: 0}
+  isPaused: 0
+  switchGunTime: 0.5
+  MaxGuns: 2
 --- !u!1 &7974190442250703711
 GameObject:
   m_ObjectHideFlags: 0

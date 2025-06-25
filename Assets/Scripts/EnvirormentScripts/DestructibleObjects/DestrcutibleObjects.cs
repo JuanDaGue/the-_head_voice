@@ -46,6 +46,7 @@ public class DestructibleObject : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Trigger detected with: " + other.gameObject.tag);
         if (other.CompareTag("Player") || other.CompareTag("Bullet"))
         {
             //Debug.Log("DestructibleObject triggered by Player");

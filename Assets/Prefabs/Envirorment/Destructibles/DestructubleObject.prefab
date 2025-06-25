@@ -122,9 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35a02689e409ff41b60b1c79b3d982d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxValue: 100
+  maxValue: 50
   minValue: 0
-  currentValue: 100
+  currentValue: 50
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
