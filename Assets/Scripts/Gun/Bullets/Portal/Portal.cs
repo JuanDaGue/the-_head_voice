@@ -55,7 +55,7 @@ public class Portal : Bullet
 
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Portal triggered by Enemy");
+            //Debug.Log("Portal triggered by Enemy");
             // Start the absorption animation before destroying the enemy.
             StartCoroutine(AbsorbEnemy(other.gameObject));
             LifeSystem enemyLife = other.GetComponent<LifeSystem>();

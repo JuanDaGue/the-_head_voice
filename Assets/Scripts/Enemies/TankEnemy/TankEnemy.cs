@@ -33,7 +33,8 @@ public class TankEnemy : Enemy
     protected override void DoAttack()
     {
         // simple heavy melee
-        Debug.Log($"{name} slams for {attackPower * 1.5f} damage!");
-        // e.g. player.GetComponent<PlayerHealth>().TakeDamage(attackPower * 1.5f);
+        //Debug.Log($"{name} slams for {attackPower * 1.5f} damage!");
+        player.GetComponent<LifeSystem>().TakeDamage(attackPower * 1.5f);
+
     }
 }

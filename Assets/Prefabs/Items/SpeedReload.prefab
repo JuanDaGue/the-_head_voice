@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 3227071829343267321}
   - component: {fileID: 6747985044141282139}
   - component: {fileID: 3921850297450435994}
+  - component: {fileID: -2543920798380603237}
   m_Layer: 0
   m_Name: SpeedReload
   m_TagString: Untagged
@@ -222,3 +223,22 @@ MonoBehaviour:
   itemPrefab: {fileID: 11400000, guid: 3e7244cc01ae21b4eadd9cf76cfb48de, type: 2}
   pickupRange: 5
   pickupForce: 100
+--- !u!114 &-2543920798380603237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999637524845765599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb9bb0d90de4134588a2c5ecc394eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatAmplitude: 0.5
+  floatFrequency: 1
+  floatOffset: {x: 0, y: 0, z: 0}
+  itemLight: {fileID: 4011093301155002639}
+  baseIntensity: 1
+  intensityVariation: 0.5
+  intensityFrequency: 2

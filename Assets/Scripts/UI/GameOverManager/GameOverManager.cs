@@ -26,13 +26,13 @@ public class GameOverManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("IsPause" + isPaused);
+        //Debug.Log("IsPause" + isPaused);
         if (!gameOverUI.activeSelf) return;
 
         timer += Time.unscaledDeltaTime;
         isPaused = true;
         gunManager.isPaused= isPaused; // Pause gun manager if needed
-        Debug.Log("GameOverManager Update called. IsPaused: " + gunManager.isPaused);
+        //Debug.Log("GameOverManager Update called. IsPaused: " + gunManager.isPaused);
         SetCursorState(isPaused);
         if (isPaused)
         {
@@ -59,7 +59,7 @@ public class GameOverManager : MonoBehaviour
         gunManager = player.GetComponentInChildren<GunManager>();
         if (gunManager == null)
         {
-            Debug.LogError("GunManager not found in player GameObject. Please assign it in the inspector.");
+            //Debug.LogError("GunManager not found in player GameObject. Please assign it in the inspector.");
         }
         //Debug.Log("GameOverManager Start called. PlayerController: " + playerController + ", GunManager: " + gunManager);
         if (gameOverUI != null)

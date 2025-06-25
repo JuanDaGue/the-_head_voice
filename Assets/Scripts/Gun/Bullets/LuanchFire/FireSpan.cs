@@ -18,7 +18,7 @@ public class FireSpan : Bullet
         fire.SetActive(FireOnFire);
         playerCamera = Camera.main;
         base.Start();
-        Debug.Log(speed);
+        //Debug.Log(speed);
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class FireSpan : Bullet
                 SpawTimeFire = 0;
             }
         }
-            transform.position = playerCamera.transform.position - playerCamera.transform.forward*2- new Vector3(0, 1f, 0);
+            transform.position = playerCamera.transform.position - playerCamera.transform.forward*2- new Vector3(0, 0.5f, 0);
 
     // Look and rotate in the direction of the camera
             transform.rotation = Quaternion.LookRotation(playerCamera.transform.forward);

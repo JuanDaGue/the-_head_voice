@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2923694578743207724, guid: ce7d185d3b5e4954e9e25f6bed8e4736, type: 3}
       propertyPath: m_TagString
-      value: Gun1
+      value: Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 4108531235866666703, guid: ce7d185d3b5e4954e9e25f6bed8e4736, type: 3}
       propertyPath: CollisionModule.enabled

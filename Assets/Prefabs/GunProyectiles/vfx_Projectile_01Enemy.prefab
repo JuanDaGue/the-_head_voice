@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2171628241475011335}
   m_Layer: 0
   m_Name: vfx_Projectile_01Enemy
-  m_TagString: Gun1
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

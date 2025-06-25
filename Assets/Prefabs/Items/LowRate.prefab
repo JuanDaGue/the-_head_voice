@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3227071829343267321}
   - component: {fileID: 6747985044141282139}
   - component: {fileID: 3921850297450435994}
+  - component: {fileID: 3893227744724732113}
   m_Layer: 0
   m_Name: LowRate
   m_TagString: Untagged
@@ -125,6 +126,25 @@ MonoBehaviour:
   itemPrefab: {fileID: 11400000, guid: efe6e11a0530990408a39e71c643d2c2, type: 2}
   pickupRange: 5
   pickupForce: 100
+--- !u!114 &3893227744724732113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999637524845765599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb9bb0d90de4134588a2c5ecc394eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatAmplitude: 0.5
+  floatFrequency: 1
+  floatOffset: {x: 0, y: 0, z: 0}
+  itemLight: {fileID: 449256783411111295}
+  baseIntensity: 1
+  intensityVariation: 0.5
+  intensityFrequency: 2
 --- !u!1 &8568199045058850930
 GameObject:
   m_ObjectHideFlags: 0
