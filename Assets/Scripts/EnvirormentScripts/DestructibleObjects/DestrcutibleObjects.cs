@@ -26,7 +26,7 @@ public class DestructibleObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.tag);
+        //Debug.Log("Collision detected with: " + collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Bullet"))
         {
             // Better approach: Damage player instead of destroying
@@ -46,11 +46,11 @@ public class DestructibleObject : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger detected with: " + other.gameObject.tag);
+        //Debug.Log("Trigger detected with: " + other.gameObject.tag);
         if (other.CompareTag("Player") || other.CompareTag("Bullet"))
         {
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
-            Debug.Log("Bullet detected: " + (bullet != null ? bullet.damage : "null"));
+            //Debug.Log("Bullet detected: " + (bullet != null ? bullet.damage : "null"));
             //bullet.damage;
             if (objectLife != null && bullet != null)
             {
@@ -58,7 +58,7 @@ public class DestructibleObject : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Bullet or LifeSystem component not found on collision object.");
+                //Debug.LogWarning("Bullet or LifeSystem component not found on collision object.");
                 objectLife.TakeDamage(10);
             }
 

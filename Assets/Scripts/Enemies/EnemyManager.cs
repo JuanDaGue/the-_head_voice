@@ -77,7 +77,7 @@ public class EnemyManager : MonoBehaviour
             spawnPoint.position,
             spawnPoint.rotation
         );
-        Debug.Log($"Spawned enemy: {enemy.name} at {spawnPoint.position}");
+        //Debug.Log($"Spawned enemy: {enemy.name} at {spawnPoint.position}");
         // Configure enemy stats
         Enemy controller = enemy.GetComponent<Enemy>();
         LifeSystem Deathcontroller = enemy.GetComponent<LifeSystem>();
