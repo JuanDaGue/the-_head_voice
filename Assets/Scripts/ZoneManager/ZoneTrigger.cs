@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class ZoneTrigger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public bool isActive = false;
-    public Zone[] zones; // Reference to the Zone scriptable object or class
-
-    public Zone currentZone; // Reference to the Zone scriptable object or class
-
+    public Zone[] zones;
+    public Zone currentZone;
     private ZoneManager zoneManager;
 
-    public void Initialized(ZoneManager manager)
+    public void Initialize(ZoneManager manager)
     {
         zoneManager = manager;
     }
@@ -20,32 +17,36 @@ public class ZoneTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !isActive)
         {
             isActive = true;
-
             SelectRandomZone();
-
-            zoneManager.SetCurrentZone(this);
-
-            // TODO: enemyManager spawn enemies in the current zone
+            zoneManager.ActivateZone(this);
         }
     }
-    
+
+    // void OnTriggerExit(Collider other)
+    // {
+    //     Debug.Log($"OnTriggerExit called for {other.name} in zone {currentZone?.zoneName}");
+    //     if (other.CompareTag("Player") && isActive)
+    //     {
+    //         isActive = false;
+    //         zoneManager.DeactivateZone(this);
+    //     }
+    // }
+
     private void SelectRandomZone()
     {
         if (zones.Length == 0) return;
-
-        // Select a random zone from the array
         int randomIndex = Random.Range(0, zones.Length);
         currentZone = zones[randomIndex];
     }
 
-
     private void OnDrawGizmos()
     {
-        // if (zone != null)
-        // {
-        //     Gizmos.color = zone.gizmoColor; // Assuming Zone has a color property
-        //     Gizmos.DrawWireCube(transform.position, transform.localScale); // Assuming Zone has a size property
-        // }
+        if (currentZone != null)
+        {
+            Gizmos.color = currentZone.gizmoColor;
+            Vector3 center = transform.position + new Vector3(currentZone.offset.x, 0, currentZone.offset.y);
+            Vector3 size = new Vector3(currentZone.size.x, 1, currentZone.size.y);
+            Gizmos.DrawWireCube(center, size);
+        }
     }
-
 }

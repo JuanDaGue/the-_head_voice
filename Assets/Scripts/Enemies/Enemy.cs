@@ -21,7 +21,7 @@ public abstract class Enemy : MonoBehaviour
     protected State currentState;
     protected NavMeshAgent agent;
     protected Transform player;
-    protected float currentHealth;
+
     protected float lastAttackTime;
     protected Vector3 patrolCenter;
     protected Vector3 patrolTarget;
@@ -34,7 +34,7 @@ public abstract class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         lifeSystem = GetComponent<LifeSystem>();
-        currentHealth = lifeSystem.Max;
+        
         patrolCenter = transform.position;
         ChooseNewPatrolPoint();
         TransitionTo(State.Patrol);
@@ -55,21 +55,21 @@ public abstract class Enemy : MonoBehaviour
                 break;
 
             case State.Chase:
-                if (currentHealth < fleeHealthThreshold) TransitionTo(State.Flee);
+                if (lifeSystem.Current < fleeHealthThreshold) TransitionTo(State.Flee);
                 else if (dist <= attackRange) TransitionTo(State.Attack);
                 else if (dist > chaseRange * 1.2f) TransitionTo(State.Patrol);
                 Chase();
                 break;
 
             case State.Attack:
-                if (currentHealth < fleeHealthThreshold) TransitionTo(State.Flee);
+                if (lifeSystem.Current < fleeHealthThreshold) TransitionTo(State.Flee);
                 else if (dist > attackRange) TransitionTo(State.Chase);
                 Attack();
                 break;
 
             case State.Flee:
                 Flee();
-                if (currentHealth > maxHealth * 0.5f && dist > chaseRange)
+                if (lifeSystem.Current < fleeHealthThreshold * 0.5f && dist > chaseRange)
                     TransitionTo(State.Patrol);
                 break;
         }
@@ -130,5 +130,11 @@ public abstract class Enemy : MonoBehaviour
         }
         Destroy(gameObject);
     }
-
+public void SetStats(float healthMultiplier, float damageMultiplier)
+    {
+        // Apply multipliers to the enemy's stats as needed
+        // Example:
+        this.maxHealth *= healthMultiplier;
+        this.attackPower *= damageMultiplier;
+    }
 }

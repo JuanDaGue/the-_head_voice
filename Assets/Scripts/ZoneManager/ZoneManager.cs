@@ -1,28 +1,103 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ZoneManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public List<ZoneTrigger> zonesMap = new List<ZoneTrigger>(); // List of zones to manage
-    private ZoneTrigger activeZone; // Currently active zonprivate 
-    public EnemyManager enemyManager; // Reference to the EnemyManager
- 
+    public List<ZoneTrigger> zonesMap = new List<ZoneTrigger>();
+    private ZoneTrigger activeZone;
+    public EnemyManager enemyManager;
+    private float zoneTimer;
+    private int enemiesRemaining;
+    private bool isZoneActive;
 
-    public void SetCurrentZone(ZoneTrigger zone)
+    void Start()
     {
-        if (zone == null) return;
 
-        // Check if the zone is already active
-        if (activeZone != null && activeZone.isActive)
+
+
+        enemyManager.Initialize(this); // Add this line
+    
+        foreach (ZoneTrigger zoneTrigger in zonesMap)
         {
-            Debug.Log($"Zone {activeZone.currentZone.name} is already active.");
+            zoneTrigger.Initialize(this);
+        }
+    }
+
+    public void ActivateZone(ZoneTrigger zone)
+    {
+        if (isZoneActive) return;
+
+        activeZone = zone;
+        isZoneActive = true;
+        Zone zoneConfig = activeZone.currentZone;
+
+        // Initialize zone
+        zoneTimer = zoneConfig.maxTime;
+        enemiesRemaining = zoneConfig.totalEnemies;
+
+        // Configure enemies
+        enemyManager.ConfigureForZone(zoneConfig);
+        enemyManager.StartSpawning();
+
+        // UI and debug
+        Debug.Log(zoneConfig.startMessages);
+        UpdateProgressUI();
+    }
+
+    public void DeactivateZone(ZoneTrigger zone)
+    {
+        if (activeZone != zone || !isZoneActive) return;
+        
+        enemyManager.StopSpawning();
+        CleanupEnemies();
+        isZoneActive = false;
+        
+        Debug.Log(activeZone.currentZone.failMessages);
+    }
+
+    void Update()
+    {
+        if (!isZoneActive) return;
+
+        // Update timer
+        zoneTimer -= Time.deltaTime;
+        // Debug.Log($"Time remaining: {zoneTimer:F2} seconds");
+        // Debug.Log($"Enemies remaining: {enemiesRemaining}");
+        // Check for failure
+        if (zoneTimer <= 0)
+        {
+            Debug.Log("Timer "+ activeZone.currentZone.failMessages);
+            DeactivateZone(activeZone);
             return;
         }
 
-        // Set the new active zone
-        activeZone = zone;
+        // Check for completion
+        if (enemiesRemaining <= 0)
+        {
+            Debug.Log("Enemies remaining "+ activeZone.currentZone.completeMessage);
+            DeactivateZone(activeZone);
+        }
     }
 
+    public void OnEnemyDefeated()
+    {
+        if (!isZoneActive) return;
+        
+        enemiesRemaining--;
+        UpdateProgressUI();
+    }
+
+    private void UpdateProgressUI()
+    {
+        string progress = string.Format(
+            activeZone.currentZone.progessMessages, 
+            enemiesRemaining
+        );
+        Debug.Log(progress);
+    }
+
+    private void CleanupEnemies()
+    {
+        enemyManager.ClearAllEnemies();
+    }
 }

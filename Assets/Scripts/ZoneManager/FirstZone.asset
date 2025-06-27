@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneName: Zona1
   gizmoColor: {r: 0, g: 1, b: 1, a: 1}
-  size: {x: 0, y: 0}
-  offset: {x: 0, y: 0}
-  maxEnemire: 30
-  healtMiltiplier: 1
+  size: {x: 100, y: 50}
+  offset: {x: 22, y: 0}
+  totalEnemies: 30
+  maxConcurrentEnemies: 10
+  healthMultiplier: 1
   damageMultiplier: 1
-  enemySpawnRate: 1
-  maxTime: 300
+  enemyTypes:
+  - enemyPrefab: {fileID: 248364554812170147, guid: 8ab4387969cc918499461f0d3a211970, type: 3}
+    enemyCount: 2
+  enemySpawnRate: 5
+  maxTime: 30000
   difficultyLevel: 1
   startMessages: Zone Started.
   progessMessages: 'Enemie restants: {0}'

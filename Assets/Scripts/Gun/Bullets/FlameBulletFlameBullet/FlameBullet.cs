@@ -10,7 +10,7 @@ public class FlameBullet : Bullet
     protected override void OnHit(Collider hit)
     {
         var enemy = hit.GetComponent<LifeSystem>();
-        Debug.Log(hit.CompareTag("Enemy"));
+        //Debug.Log(hit.CompareTag("Enemy"));
         if (enemy != null && hit.CompareTag("Enemy"))
         {
             // initial hit

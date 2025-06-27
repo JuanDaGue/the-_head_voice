@@ -8,12 +8,7 @@ public class LifeSystem : Statistics
 
     public virtual void TakeDamage(float damage)
     {
-        if (damage < 0)
-        {
-            //OnDeath.Invoke();
-            Destroy(gameObject);
-            return;
-        }
+        if (damage < 0) return;
         Subtract(damage);
         if (Current <= Min) OnDeath?.Invoke();
     }

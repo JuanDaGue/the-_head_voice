@@ -944,7 +944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &98727887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,11 +959,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   zones:
-  - {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
-  - {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
-  - {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
-  - {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
-  - {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
   - {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
   currentZone: {fileID: 11400000, guid: 79bc318306060634a8d5abff9b0fc98c, type: 2}
 --- !u!65 &98727888
@@ -1957,21 +1952,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b51c5530639c4a8fc931ce27c1e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnList:
-  - enemyPrefab: {fileID: 248364554812170147, guid: 8ab4387969cc918499461f0d3a211970, type: 3}
-    enemyCount: 2
-  - enemyPrefab: {fileID: 295048798979671064, guid: 514bcc5974c005d428db5d075b3f75e0, type: 3}
-    enemyCount: 2
-  - enemyPrefab: {fileID: 295048798979671064, guid: dd1bb873159f2b749af8dc1f23096bae, type: 3}
-    enemyCount: 1
   spawnPoints:
   - {fileID: 809064771}
   - {fileID: 333734462}
   - {fileID: 48502871}
   - {fileID: 1215041873}
   - {fileID: 4482885}
-  spawnInterval: 10
-  maxEnemies: 10
+  defaultSpawnInterval: 5
+  defaultMaxEnemies: 10
 --- !u!4 &432376659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8958643502092822149, guid: 95f16658efe276540849bb8fe92011fa, type: 3}
@@ -9074,7 +9062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1577905807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9089,7 +9077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zonesMap:
   - {fileID: 98727887}
-  enemyManager: {fileID: 0}
+  enemyManager: {fileID: 418855046}
 --- !u!4 &1577905808
 Transform:
   m_ObjectHideFlags: 0
@@ -11891,7 +11879,7 @@ MonoBehaviour:
   - {fileID: 3921850297450435994, guid: a5252545efd5baf4abb2f5d31460bc98, type: 3}
   - {fileID: 3921850297450435994, guid: 3b086f6956ca0eb4bb21b2b14478bfec, type: 3}
   - {fileID: 3921850297450435994, guid: 33d30e77a01255245bfcaee5aa38df97, type: 3}
-  spawnProbability: 0.808
+  spawnProbability: 0.2
   defaultSpawnPoint: {fileID: 2048599775}
 --- !u!1001 &2095948696
 PrefabInstance:

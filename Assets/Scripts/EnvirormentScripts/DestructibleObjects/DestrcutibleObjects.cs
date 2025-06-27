@@ -39,7 +39,7 @@ public class DestructibleObject : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Bullet or LifeSystem component not found on collision object.");
+                //Debug.LogWarning("Bullet or LifeSystem component not found on collision object.");
                 objectLife.TakeDamage(10);
             }
         }
@@ -49,11 +49,18 @@ public class DestructibleObject : MonoBehaviour
         Debug.Log("Trigger detected with: " + other.gameObject.tag);
         if (other.CompareTag("Player") || other.CompareTag("Bullet"))
         {
-            //Debug.Log("DestructibleObject triggered by Player");
-            // Start the absorption animation before destroying the enemy.
-            //SrtCoroutine(AbsorbEnemy(other.gameObject));
-            //feSystem enemyLife = other.GetComponent<LifeSystem>();
-            objectLife.TakeDamage(10);
+            Bullet bullet = other.gameObject.GetComponent<Bullet>();
+            Debug.Log("Bullet detected: " + (bullet != null ? bullet.damage : "null"));
+            //bullet.damage;
+            if (objectLife != null && bullet != null)
+            {
+                objectLife.TakeDamage(bullet.damage); // Adjust damage as needed
+            }
+            else
+            {
+                Debug.LogWarning("Bullet or LifeSystem component not found on collision object.");
+                objectLife.TakeDamage(10);
+            }
 
         }
     }

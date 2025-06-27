@@ -80,8 +80,8 @@ public class EnemySearch : Bullet
             }
             else
             {
-               Debug.LogWarning("No more enemies to search for.");
-                //Destroy(gameObject);
+               //Debug.LogWarning("No more enemies to search for.");
+                Destroy(gameObject, 5f);
             }
         }
     }
