@@ -7,9 +7,12 @@ public class ZoneTrigger : MonoBehaviour
     public Zone currentZone;
     private ZoneManager zoneManager;
 
+    public Transform[] spawnPoints;
+    private EnemyManager enemyManager;
     public void Initialize(ZoneManager manager)
     {
         zoneManager = manager;
+        enemyManager = manager.enemyManager;
     }
 
     void OnTriggerEnter(Collider other)
@@ -19,6 +22,7 @@ public class ZoneTrigger : MonoBehaviour
             isActive = true;
             SelectRandomZone();
             zoneManager.ActivateZone(this);
+            enemyManager.spawnPoints = spawnPoints;
         }
     }
 
@@ -49,4 +53,14 @@ public class ZoneTrigger : MonoBehaviour
             Gizmos.DrawWireCube(center, size);
         }
     }
+    void Start()
+    {
+        int count = transform.childCount;
+        spawnPoints = new Transform[count];
+        for (int i = 0; i < count; i++)
+        {
+            spawnPoints[i] = transform.GetChild(i);
+        }
+    }
+
 }

@@ -7,6 +7,7 @@ public class Zone : ScriptableObject
     [Header("Zone Settings")]
     public string zoneName;
     public Color gizmoColor = Color.cyan;
+    
 
     [Header("Zone Dimensions")]
     public Vector2Int size;

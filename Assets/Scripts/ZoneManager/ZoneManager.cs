@@ -12,11 +12,7 @@ public class ZoneManager : MonoBehaviour
 
     void Start()
     {
-
-
-
         enemyManager.Initialize(this); // Add this line
-    
         foreach (ZoneTrigger zoneTrigger in zonesMap)
         {
             zoneTrigger.Initialize(this);
