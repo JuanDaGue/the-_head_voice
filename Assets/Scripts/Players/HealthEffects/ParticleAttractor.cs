@@ -87,9 +87,9 @@ public class ParticleAttractor : MonoBehaviour
                 lifeSystem?.Heal(healPerParticle); // Heal player
                 lifeSystem.Add(healPerParticle); // Add to life system
                 damageEffects?.ShowDamageEffects(); // Show damage effects
-                damageEffects.damageOverlay.color = new Color(0, 1, 0, 0.8f);
-                var mainModule = damageEffects.bloodEffect.main;
-                mainModule.startColor = new Color(0, 1, 0, 0.8f);
+                // damageEffects.damageOverlay.color = new Color(0, 1, 0, 0.8f);
+                // var mainModule = damageEffects.bloodEffect.main;
+                // mainModule.startColor = new Color(0, 1, 0, 0.8f);
             }
         }
 
