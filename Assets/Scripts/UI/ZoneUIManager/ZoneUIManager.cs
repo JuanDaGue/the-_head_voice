@@ -1,93 +1,175 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ZoneUIManager : MonoBehaviour
 {
     [Header("UI References")]
-    public CanvasGroup zoneUIPanel;
-    public TMP_Text zoneTitle;
-    public TMP_Text timerText;
-    public TMP_Text enemyProgressText;
-    public TMP_Text enemyCountText;
-    public TMP_Text progressMessage;
-    public TMP_Text statusMessage;
+    public CanvasGroup zoneUI;
+    public TextMeshProUGUI statusText;
+    public TextMeshProUGUI titleText;
+    public TextMeshProUGUI progressText;
+    public Image timerBar;
+    public Image timerBackground;
 
-    [Header("Settings")]
+    public GameObject PanelUI;
+
+    [Header("Timing Settings")]
+    public float statusDuration = 2f;
+    public float titleDuration = 2f;
     public float fadeDuration = 0.5f;
-    public float messageDisplayTime = 3f;
 
-    private float fadeTimer;
-    private float messageTimer;
-    private bool isShowingMessage;
-    private bool isPanelVisible;
-
+    private Coroutine currentSequence;
+    private float maxTime;
+    private float currentTime;
+    public TMP_Text enemyCountText;
+    public TMP_Text timerText;
     void Start()
     {
-        // Start with UI hidden
-        zoneUIPanel.alpha = 0;
-        zoneUIPanel.interactable = false;
-        zoneUIPanel.blocksRaycasts = false;
-        isPanelVisible = false;
+        // Initialize with all UI hidden
+        zoneUI.alpha = 0;
+        statusText.gameObject.SetActive(false);
+        titleText.gameObject.SetActive(false);
+        progressText.gameObject.SetActive(false);
+        timerBar.gameObject.SetActive(false);
+        timerBackground.gameObject.SetActive(false);
     }
 
-    void Update()
+    public void StartZoneSequence(Zone zoneConfig)
     {
-        // Handle message display timing
-        if (isShowingMessage)
+        // Stop any existing sequence
+        if (currentSequence != null)
         {
-            messageTimer -= Time.deltaTime;
-            if (messageTimer <= 0)
-            {
-                statusMessage.text = "";
-                isShowingMessage = false;
-            }
+            StopCoroutine(currentSequence);
         }
+
+        // Start new sequence
+        currentSequence = StartCoroutine(ZoneSequence(zoneConfig));
     }
 
-    public void ShowZoneUI(Zone zone)
+    private IEnumerator ZoneSequence(Zone zoneConfig)
     {
-        // Update UI content
-        zoneTitle.text = zone.zoneName;
-        enemyProgressText.text = "Enemies: ";
-        enemyCountText.text = $"0/{zone.totalEnemies}";
-        progressMessage.text = zone.startMessages;
-        
-        // Clear status message
-        statusMessage.text = "";
-        
-        // Start fade in
-        StartCoroutine(FadeUI(true));
-    }
+        maxTime = zoneConfig.maxTime;
+        currentTime = maxTime;
 
-    public void HideZoneUI()
-    {
-        StartCoroutine(FadeUI(false));
-    }
+        // Fade in UI
+        yield return StartCoroutine(FadeUI(0f, 1f, fadeDuration));
 
-    private System.Collections.IEnumerator FadeUI(bool show)
-    {
-        if (show == isPanelVisible) yield break;
-        
-        isPanelVisible = show;
-        float targetAlpha = show ? 1 : 0;
-        float startAlpha = zoneUIPanel.alpha;
-        float timer = 0;
-        
-        zoneUIPanel.interactable = show;
-        zoneUIPanel.blocksRaycasts = show;
-        
-        while (timer < fadeDuration)
+        // Phase 1: Show status message
+        statusText.text = zoneConfig.startMessages;
+        statusText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(statusDuration);
+
+        // Phase 2: Show title
+        statusText.gameObject.SetActive(false);
+        titleText.text = zoneConfig.zoneName;
+        titleText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(titleDuration);
+
+        // Phase 3: Show progress and timer
+        titleText.gameObject.SetActive(false);
+        progressText.gameObject.SetActive(true);
+        timerBar.gameObject.SetActive(true);
+        timerBackground.gameObject.SetActive(true);
+        //yield return new WaitForSeconds(titleDuration);
+        // Update progress and timer continuously
+        while (currentTime > 0)
         {
-            timer += Time.deltaTime;
-            zoneUIPanel.alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / fadeDuration);
+            currentTime -= Time.deltaTime;
+            UpdateTimerBar();
+            UpdateProgressText(zoneConfig);
+            yield return null;
+            //PanelUI.SetActive(false);
+        }
+        //PanelUI.SetActive(true);
+        yield return new WaitForSeconds(titleDuration);
+        PanelUI.SetActive(false);
+
+        // Fade out UI at end
+        //PanelUI.SetActive(false);
+        yield return StartCoroutine(FadeUI(1f, 0f, fadeDuration));
+
+        // Hide all elements
+        statusText.gameObject.SetActive(false);
+        titleText.gameObject.SetActive(false);
+        progressText.gameObject.SetActive(false);
+        timerBar.gameObject.SetActive(false);
+        timerBackground.gameObject.SetActive(false);
+        //yield return new WaitForSeconds(titleDuration);
+    }
+
+    private void UpdateTimerBar()
+    {
+        float fillAmount = Mathf.Clamp01(currentTime / maxTime);
+        timerBar.fillAmount = fillAmount;
+        Debug.Log($"Timer Bar Fill Amount: {fillAmount}");
+        // Visual feedback - change color based on time remaining
+        timerBar.color = Color.Lerp(Color.red, Color.green, fillAmount);
+    }
+
+    private void UpdateProgressText(Zone zoneConfig)
+    {
+        progressText.text = string.Format(
+            zoneConfig.progessMessages,
+            ZoneManager.Instance.EnemiesRemaining
+        );
+    }
+
+    public void EndZoneSequence(bool success, Zone zoneConfig)
+    {
+        if (currentSequence != null)
+        {
+            StopCoroutine(currentSequence);
+        }
+
+        StartCoroutine(EndSequence(success, zoneConfig));
+    }
+
+    private IEnumerator EndSequence(bool success, Zone zoneConfig)
+    {
+        // Show final message
+        PanelUI.SetActive(true);
+        statusText.text = success ? zoneConfig.completeMessage : zoneConfig.failMessages;
+        statusText.gameObject.SetActive(true);
+        progressText.gameObject.SetActive(false);
+        timerBar.gameObject.SetActive(false);
+        timerBackground.gameObject.SetActive(false);
+
+        // Wait for message to be read
+        yield return new WaitForSeconds(3f);
+
+        // Fade out UI
+        yield return StartCoroutine(FadeUI(1f, 0f, fadeDuration));
+
+        // Hide all elements
+        statusText.gameObject.SetActive(false);
+        titleText.gameObject.SetActive(false);
+    }
+
+    private IEnumerator FadeUI(float startAlpha, float endAlpha, float duration)
+    {
+        float elapsed = 0f;
+        //PanelUI.SetActive(true);
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            zoneUI.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
             yield return null;
         }
-        
-        zoneUIPanel.alpha = targetAlpha;
+
+        zoneUI.alpha = endAlpha;
     }
 
-    public void UpdateTimer(float timeRemaining)
+    public void UpdateEnemyCount(int defeated, int total)
+    {
+        enemyCountText.text = $"{defeated}/{total}";
+
+        // Change color based on progress
+        float progress = (float)defeated / total;
+        enemyCountText.color = Color.Lerp(Color.red, Color.green, progress);
+    }
+        public void UpdateTimer(float timeRemaining)
     {
         // Format time as minutes:seconds
         int minutes = Mathf.FloorToInt(timeRemaining / 60);
@@ -95,25 +177,4 @@ public class ZoneUIManager : MonoBehaviour
         timerText.text = $"{minutes:00}:{seconds:00}";
     }
 
-    public void UpdateEnemyCount(int defeated, int total)
-    {
-        enemyCountText.text = $"{defeated}/{total}";
-        
-        // Change color based on progress
-        float progress = (float)defeated / total;
-        enemyCountText.color = Color.Lerp(Color.red, Color.green, progress);
-    }
-
-    public void ShowProgressMessage(string message)
-    {
-        progressMessage.text = message;
-    }
-
-    public void ShowStatusMessage(string message, bool isSuccess)
-    {
-        statusMessage.text = message;
-        statusMessage.color = isSuccess ? Color.green : Color.red;
-        isShowingMessage = true;
-        messageTimer = messageDisplayTime;
-    }
 }
