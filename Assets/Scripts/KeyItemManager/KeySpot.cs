@@ -1,24 +1,25 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class KeySpot : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public enum KeyItemType { Key, Gun, Generic, Collectable }
 
-    public GameObject keyItemPrefab;
-
-    public GameObject keyItemUI;
-
+    [Header("Spot Configuration")]
+    public KeyItemType itemType;
+    //public GameObject itemPrefab;
     public bool isActivated = false;
 
-    private Transform spawnPoint;
-
-    private KeyItemManager keyItemManager;
+    [Header("UI Elements")]
+    public GameObject keyItemUI;
     
-    public void Initializate(KeyItemManager manager)
+    private Transform spawnPoint;
+    private KeyItemManager keyItemManager;
+    private GunManager gunManager;
+    
+    public void Initialize(KeyItemManager manager, GunManager gunMgr)
     {
         keyItemManager = manager;
+        gunManager = gunMgr;
     }
 
     void Start()
@@ -30,47 +31,86 @@ public class KeySpot : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            ShowPickupUIMesage();
+            ShowPickupUIMessage();
             isActivated = true;
-            keyItemManager.AtiveSpot(this);
-            if (keyItemPrefab != null)
-            {
-                GameObject keyItem = Instantiate(keyItemPrefab, spawnPoint.position, spawnPoint.rotation);
-                keyItem.transform.parent = spawnPoint;
-                keyItem.transform.localPosition = Vector3.zero;
-                keyItem.transform.localRotation = Quaternion.identity;
-            }
-            else
-            {
-                Debug.LogWarning("No key item prefab found!");
-            }
+            keyItemManager.ActivateSpot(this);
         }
     }
-    private void ShowPickupUIMesage()
-    {
-        Debug.Log("Press Space to pick up the key item.");
-    }
+
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            HidePickupUIMesage();
+            HidePickupUIMessage();
             isActivated = false;
             keyItemManager.DeactivateSpot();
         }
     }
 
-    private void HidePickupUIMesage()
+    public void SpawnItem()
     {
-        Debug.Log("Key item pickup UI hidden.");
+        switch (itemType)
+        {
+            case KeyItemType.Key:
+                if (keyItemManager.itemPrefabs[itemType] != null)
+                {
+                    Instantiate(keyItemManager.itemPrefabs[itemType], spawnPoint.position, spawnPoint.rotation);
+                }
+                break;
+            case KeyItemType.Collectable:
+                if (keyItemManager.itemPrefabs[itemType] != null)
+                {
+                    Instantiate(keyItemManager.itemPrefabs[itemType], spawnPoint.position, spawnPoint.rotation);
+                }
+                break;
+            case KeyItemType.Generic:
+                if (keyItemManager.itemPrefabs[itemType] != null)
+                {
+                    Instantiate(keyItemManager.itemPrefabs[itemType], spawnPoint.position, spawnPoint.rotation);
+                }
+                break;
+            case KeyItemType.Gun:
+                SpawnRandomGun();
+                break;
+        }
+    }
+
+    private void SpawnRandomGun()
+    {
+        if (gunManager != null && gunManager.allGuns.Count > 0)
+        {
+            // Select random gun
+            int randomIndex = Random.Range(0, gunManager.allGuns.Count);
+            GunBase selectedGun = gunManager.allGuns[randomIndex];
+
+            // Add to player's available guns
+            if (!gunManager.guns.Contains(selectedGun))
+            {
+                gunManager.guns.Add(selectedGun);
+                gunManager.EquipGun(gunManager.guns.Count - 1);
+            }
+            
+
+        }
+    }
+
+    private void ShowPickupUIMessage()
+    {
+        if (keyItemUI != null)
+        {
+            keyItemUI.SetActive(true);
+        }
+    }
+
+    private void HidePickupUIMessage()
+    {
+        if (keyItemUI != null)
+        {
+            keyItemUI.SetActive(false);
+        }
     }
 }

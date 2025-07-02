@@ -83,7 +83,7 @@ public class ParticleAttractor : MonoBehaviour
             if (dist < 2f)
             {
                 // If too close, snap to player position
-                Debug.Log($"Particle {i} too close, Healing and snapping to player");
+                //Debug.Log($"Particle {i} too close, Healing and snapping to player");
                 lifeSystem?.Heal(healPerParticle); // Heal player
                 lifeSystem.Add(healPerParticle); // Add to life system
                 damageEffects?.ShowDamageEffects(); // Show damage effects

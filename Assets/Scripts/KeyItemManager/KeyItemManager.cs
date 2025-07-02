@@ -1,107 +1,116 @@
-using System;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class KeyItemManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created 
+
+
+    [System.Serializable]
+    public struct ItemPrefabEntry
+    {
+        public KeySpot.KeyItemType type;
+        public GameObject prefab;
+    }
+    [Header("Key Spots")]
+    [Tooltip("List of key spots that can be activated by the player.")]
     public List<KeySpot> spots = new List<KeySpot>();
-    private float pressTime = 1.0f; // Time to hold the key to activate
-    private float holdTime = 0f; // Time the key has been held down
+    public float pressTime = 1.0f;
+    private float holdTime = 0f;
     private bool isPressing = false;
     [SerializeField] private KeySpot currentSpot;
-    void Start()
-    {
-        Debug.Log("Current Spot: " + currentSpot.name);
-        foreach (KeySpot spot in spots)
-        {
-            if (spot == null) continue; // Skip null spots
-            spot.Initializate(this);
-        }
-        //currentSpot.Initializate(this);
+    
+    private GunManager gunManager;
+    [Header("Configuración de Prefabs")]
+    public ItemPrefabEntry[] prefabEntries;
 
+    public Dictionary<KeySpot.KeyItemType, GameObject> itemPrefabs = new Dictionary<KeySpot.KeyItemType, GameObject>();
+
+    void Awake()
+    {
+
+        // Crear y poblar el diccionario
+        itemPrefabs = new Dictionary<KeySpot.KeyItemType, GameObject>();
+        foreach (var entry in prefabEntries)
+        {
+            if (entry.prefab != null && !itemPrefabs.ContainsKey(entry.type))
+                itemPrefabs.Add(entry.type, entry.prefab);
+        }
     }
 
-    // Update is called once per frame
+
+    void Start()
+    {
+        gunManager = FindFirstObjectByType<GunManager>();
+        
+        foreach (KeySpot spot in spots)
+        {
+            if (spot == null) continue;
+            spot.Initialize(this, gunManager);
+        }
+    }
+
     void Update()
     {
         if (currentSpot == null) return;
         HandleInput();
     }
 
-private void HandleInput()
-{
-    if (currentSpot == null || !currentSpot.isActivated)
-        return;
-
-    if (Input.GetKey(KeyCode.E))
+    private void HandleInput()
     {
-        if (!isPressing)
+        if (!currentSpot.isActivated)
+            return;
+
+        if (Input.GetKey(KeyCode.E))
         {
-            isPressing = true;
-            holdTime = 0f;
+            if (!isPressing)
+            {
+                isPressing = true;
+                holdTime = 0f;
+            }
+
+            holdTime += Time.deltaTime;
+
+            if (holdTime >= pressTime)
+            {
+                InteractWithCurrentSpot();
+                Debug.Log("✅ Activated KeySpot: " + currentSpot.name);
+                
+                currentSpot.SpawnItem();
+                currentSpot.isActivated = false;
+                //currentSpot = null;
+                Destroy(currentSpot.gameObject);
+                isPressing = false;
+                holdTime = 0f;
+            }
         }
 
-        holdTime += Time.deltaTime;
-
-        if (holdTime >= pressTime)
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            InteractWithCurrentSpot();
-            Debug.Log("✅ Activated KeySpot: " + currentSpot.name);
-
-            Destroy(currentSpot.gameObject);
-            currentSpot.isActivated = false;
-            currentSpot = null;
-
-            // Reset pressing state
             isPressing = false;
             holdTime = 0f;
         }
     }
 
-    // Reset if key is released before the required time
-    if (Input.GetKeyUp(KeyCode.E))
-    {
-        if (holdTime < pressTime)
-        {
-            Debug.Log("⏱️ Key released too early. Held for " + holdTime.ToString("F2") + " seconds.");
-        }
-
-        isPressing = false;
-        holdTime = 0f;
-    }
-}
     private void InteractWithCurrentSpot()
     {
         Debug.Log("Interacting with KeySpot: " + currentSpot.name);
     }
 
-    public enum KeyItemType
-    {
-        key,
-        Gun,
-        Generic,
-        Collectable,
-
-    }
-
-    public void AtiveSpot(KeySpot spot)
+    public void ActivateSpot(KeySpot spot)
     {
         if (currentSpot != null)
         {
-            currentSpot.isActivated = false; // Deactivate the previous spot
+            currentSpot.isActivated = false;
         }
         currentSpot = spot;
-        currentSpot.isActivated = true; // Activate the new spot
-        Debug.Log("Activated KeySpot: " + currentSpot.name);
+        currentSpot.isActivated = true;
     }
+    
     public void DeactivateSpot()
     {
         if (currentSpot != null)
         {
-            currentSpot.isActivated = false; // Deactivate the previous spot
+            currentSpot.isActivated = false;
         }
-        //currentSpot = null;
     }
 }
