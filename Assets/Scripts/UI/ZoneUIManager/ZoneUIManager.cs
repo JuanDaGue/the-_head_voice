@@ -74,22 +74,26 @@ public class ZoneUIManager : MonoBehaviour
         timerBackground.gameObject.SetActive(true);
         //yield return new WaitForSeconds(titleDuration);
         // Update progress and timer continuously
+        StartCoroutine(DeactivatePanelAfterDelay(2f));
+
         while (currentTime > 0)
         {
             currentTime -= Time.deltaTime;
             UpdateTimerBar();
             UpdateProgressText(zoneConfig);
             yield return null;
-            //PanelUI.SetActive(false);
+            //UpdateTimerBar();
+
         }
         //PanelUI.SetActive(true);
-        yield return new WaitForSeconds(titleDuration);
-        PanelUI.SetActive(false);
 
         // Fade out UI at end
         //PanelUI.SetActive(false);
         yield return StartCoroutine(FadeUI(1f, 0f, fadeDuration));
 
+        yield return new WaitForSeconds(titleDuration);
+            //UpdateProgressText(zoneConfig);
+        PanelUI.SetActive(false);
         // Hide all elements
         statusText.gameObject.SetActive(false);
         titleText.gameObject.SetActive(false);
@@ -103,7 +107,7 @@ public class ZoneUIManager : MonoBehaviour
     {
         float fillAmount = Mathf.Clamp01(currentTime / maxTime);
         timerBar.fillAmount = fillAmount;
-        Debug.Log($"Timer Bar Fill Amount: {fillAmount}");
+        //Debug.Log($"Timer Bar Fill Amount: {fillAmount}");
         // Visual feedback - change color based on time remaining
         timerBar.color = Color.Lerp(Color.red, Color.green, fillAmount);
     }
@@ -176,5 +180,10 @@ public class ZoneUIManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(timeRemaining % 60);
         timerText.text = $"{minutes:00}:{seconds:00}";
     }
+    private IEnumerator DeactivatePanelAfterDelay(float delay)
+{
+    yield return new WaitForSeconds(delay);
+    PanelUI.SetActive(false);
+}
 
 }
