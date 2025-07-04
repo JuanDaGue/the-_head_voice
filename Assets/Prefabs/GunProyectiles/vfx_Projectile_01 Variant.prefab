@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 318695414624906668, guid: ce7d185d3b5e4954e9e25f6bed8e4736, type: 3}
+      propertyPath: enemyImpactEffect.hitParticlePrefab
+      value: 
+      objectReference: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
+    - target: {fileID: 318695414624906668, guid: ce7d185d3b5e4954e9e25f6bed8e4736, type: 3}
+      propertyPath: defaultImpactEffect.hitParticlePrefab
+      value: 
+      objectReference: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
     - target: {fileID: 2818732644760956273, guid: ce7d185d3b5e4954e9e25f6bed8e4736, type: 3}
       propertyPath: m_IsTrigger
       value: 1

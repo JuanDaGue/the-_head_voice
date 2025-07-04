@@ -14,6 +14,11 @@ public class EnemySearch : Bullet
 
     private bool initialized = false;
 
+
+        [Header("Impact Effects")]
+        public ImpactEffect enemyImpactEffect;
+        public ImpactEffect defaultImpactEffect;
+
     protected override void Start()
     {
         base.Start(); // importante para que se aplique la velocidad inicial
@@ -53,7 +58,7 @@ public class EnemySearch : Bullet
         else
         {
             Debug.LogWarning("No enemies detected within range.");
-            //Destroy(gameObject); // sin objetivos
+            Destroy(gameObject,lifetime); // sin objetivos
         }
     }
 
@@ -99,11 +104,22 @@ public class EnemySearch : Bullet
     {
         // Solo daña si choca con algo no planificado
         var enemy = hit.GetComponent<LifeSystem>();
-        if (enemy != null)
+        
+        // Apply damage if it's an enemy
+        if (enemy != null && hit.CompareTag("Enemy"))
         {
             enemy.TakeDamage(damage);
+            // Play enemy-specific impact effect
+            enemyImpactEffect.PlayEffect(transform.position, hit.transform);
         }
-
+        else
+        {
+            // Play default impact effect for non-enemies
+            defaultImpactEffect.PlayEffect(transform.position);
+        }
+        
+        // Destroy the bullet
+        Destroy(gameObject);
         //Destroy(gameObject);
     }
 

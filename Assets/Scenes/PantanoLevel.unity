@@ -9723,6 +9723,7 @@ GameObject:
   - component: {fileID: 1357695591}
   - component: {fileID: 1357695592}
   - component: {fileID: 1357695593}
+  - component: {fileID: 1357695594}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -9803,6 +9804,79 @@ MonoBehaviour:
   fadeDuration: 0.5
   enemyCountText: {fileID: 0}
   timerText: {fileID: 0}
+--- !u!114 &1357695594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357695589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8820d02304d447d43acde9905d54e21b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1957883308}
+  mainCamera: {fileID: 991360594}
+  indicatorPrefab: {fileID: 64262939979314913, guid: da2c122449ac38f4381852621c03bcb8, type: 3}
+  canvas: {fileID: 1071248905}
+  interestPoints:
+  - target: {fileID: 1212837592}
+    icon: {fileID: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    visibilityTimer: 0
+  - target: {fileID: 179059712}
+    icon: {fileID: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    visibilityTimer: 0
+  - target: {fileID: 246243025}
+    icon: {fileID: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    visibilityTimer: 0
+  - target: {fileID: 1256767222}
+    icon: {fileID: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    visibilityTimer: 0
+  edgeBuffer: 1000
+  smoothTime: 0.0002
+  maxScale: 0.5
+  minScale: 0.3
+  maxDistance: 100
+  showDuration: 20
+  cooldownDuration: 5
+  toggleKey: 122
+  colorGradient:
+    serializedVersion: 2
+    key0: {r: 0.13082945, g: 0.7924528, b: 0.19152908, a: 0.5019608}
+    key1: {r: 0.8490566, g: 0.15619439, b: 0.15619439, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0.97713083}
+    key3: {r: 0, g: 0, b: 0, a: 0.5019608}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 5783
+    ctime1: 60524
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 17926
+    atime2: 42791
+    atime3: 65535
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 4
+  pulseSpeed: 0.5
+  pulseIntensity: 0.2
 --- !u!1 &1387904272
 GameObject:
   m_ObjectHideFlags: 0
@@ -12949,7 +13023,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00012207031}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1831764317
@@ -15509,6 +15583,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1660239401}
     m_Modifications:
+    - target: {fileID: 694859385439072139, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: maxValue
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 694859385439072139, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
+      propertyPath: currentValue
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 3265483192094621835, guid: 9dcdb70dd83f5f94da18eab15a1db054, type: 3}
       propertyPath: isPaused
       value: 0

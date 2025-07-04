@@ -509,11 +509,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60312052}
   m_CullTransparentMesh: 1
---- !u!4 &64626196 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2309874182500155747, guid: 9ab204ac32dabfe4db39de3f022917e4, type: 3}
-  m_PrefabInstance: {fileID: 854182710}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &69990674
 GameObject:
   m_ObjectHideFlags: 0
@@ -2608,6 +2603,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ab204ac32dabfe4db39de3f022917e4, type: 3}
+--- !u!4 &297915390 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7891507527201451072, guid: 9ab204ac32dabfe4db39de3f022917e4, type: 3}
+  m_PrefabInstance: {fileID: 297915389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &310116759
 GameObject:
   m_ObjectHideFlags: 0
@@ -5368,8 +5368,8 @@ Transform:
   m_Children:
   - {fileID: 731574383}
   - {fileID: 1121582096}
-  - {fileID: 959020558}
-  - {fileID: 64626196}
+  - {fileID: 297915390}
+  - {fileID: 854182711}
   - {fileID: 1464032584}
   - {fileID: 1932143725}
   - {fileID: 321898072}
@@ -5926,6 +5926,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ab204ac32dabfe4db39de3f022917e4, type: 3}
+--- !u!4 &854182711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7891507527201451072, guid: 9ab204ac32dabfe4db39de3f022917e4, type: 3}
+  m_PrefabInstance: {fileID: 854182710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &889963657
 GameObject:
   m_ObjectHideFlags: 0
@@ -6583,11 +6588,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -190949986337915257, guid: b3ceca1001d68f84b82ac1cc17a3d8b4, type: 3}
---- !u!4 &959020558 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2309874182500155747, guid: 9ab204ac32dabfe4db39de3f022917e4, type: 3}
-  m_PrefabInstance: {fileID: 297915389}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1003839034
 GameObject:
   m_ObjectHideFlags: 0
@@ -6814,7 +6814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1035441555
 Transform:
   m_ObjectHideFlags: 0

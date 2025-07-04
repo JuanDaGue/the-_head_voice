@@ -6,20 +6,30 @@ public class FlameBullet : Bullet
     public float burnDuration = 3f;
     public float burnTickRate = 1f;
     public float burnDamagePerTick = 2f;
+    
+        [Header("Impact Effects")]
+        public ImpactEffect enemyImpactEffect;
+        public ImpactEffect defaultImpactEffect;
 
     protected override void OnHit(Collider hit)
     {
         var enemy = hit.GetComponent<LifeSystem>();
-        //Debug.Log(hit.CompareTag("Enemy"));
+
+        // Apply damage if it's an enemy
         if (enemy != null && hit.CompareTag("Enemy"))
         {
-            // initial hit
             enemy.TakeDamage(damage);
-            // then apply DOT
-            enemy.StartCoroutine(Ignite(enemy));
+            // Play enemy-specific impact effect
+            enemyImpactEffect.PlayEffect(transform.position, hit.transform);
+        }
+        else
+        {
+            // Play default impact effect for non-enemies
+            defaultImpactEffect.PlayEffect(transform.position);
         }
 
-        // optional: spawn fire decal or VFX
+        // Destroy the bullet
+        Destroy(gameObject, lifetime);
     }
 
     private System.Collections.IEnumerator Ignite(LifeSystem target)
