@@ -46,7 +46,7 @@ public class PowerUpsManager : MonoBehaviour
     public void TrySpawnRandomPowerUp(Vector3 position)
     {
         if (powerUpPickups == null || powerUpPickups.Count == 0) return;
-
+        defaultSpawnPoint.position = position;
         float roll = Random.value;
         if (roll > spawnProbability)
         {

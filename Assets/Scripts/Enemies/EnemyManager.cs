@@ -5,72 +5,123 @@ using System.Collections.Generic;
 [System.Serializable]
 public class EnemySpawnData
 {
-    [Tooltip("Enemy Prefab reference")]
     public GameObject enemyPrefab;
-    
-    [Tooltip("Number of enemies of this type to spawn")]
     public int enemyCount;
 }
 
 public class EnemyManager : MonoBehaviour
 {
-    [Header("Enemy Types")]
-    [Tooltip("List of enemy types and the count to spawn for each type")]
-    public List<EnemySpawnData> enemySpawnList = new List<EnemySpawnData>();
-
     [Header("Spawn Settings")]
     public Transform[] spawnPoints;
-    public float spawnInterval = 10f;
-    public int maxEnemies = 10;
+    public float defaultSpawnInterval = 5f;
+    public int defaultMaxEnemies = 10;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
+    private Coroutine spawnCoroutine;
+    private Zone currentZone;
+    private int totalEnemiesToSpawn;
+    private int enemiesSpawned;
+    private ZoneManager zoneManager;
 
-    private void Start()
+    public void Initialize(ZoneManager manager)
     {
-        StartCoroutine(SpawnEnemiesRoutine());
+        zoneManager = manager;
+    }
+
+    public void ConfigureForZone(Zone zoneConfig)
+    {
+        currentZone = zoneConfig;
+        totalEnemiesToSpawn = zoneConfig.totalEnemies;
+        enemiesSpawned = 0;
+    }
+
+    public void StartSpawning()
+    {
+        if (spawnCoroutine != null) 
+            StopCoroutine(spawnCoroutine);
+        
+        spawnCoroutine = StartCoroutine(SpawnEnemiesRoutine());
+    }
+
+    public void StopSpawning()
+    {
+        if (spawnCoroutine != null)
+            StopCoroutine(spawnCoroutine);
     }
 
     IEnumerator SpawnEnemiesRoutine()
     {
-        while (true)
+        while (enemiesSpawned < totalEnemiesToSpawn)
         {
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(currentZone.enemySpawnRate);
+            
             CleanUpNullEnemies();
+            if (activeEnemies.Count >= currentZone.maxConcurrentEnemies) 
+                continue;
 
-            // Check if we can spawn more
-            if (activeEnemies.Count >= maxEnemies) continue;
-
-            foreach (EnemySpawnData spawnData in enemySpawnList)
-            {
-                // Check if prefab is set
-                if (spawnData.enemyPrefab == null)
-                {
-                    Debug.LogError("Missing enemy prefab in enemySpawnList!");
-                    continue;
-                }
-
-                // Determine how many of this type to spawn without exceeding maxEnemies
-                int spawnableCount = Mathf.Min(spawnData.enemyCount, maxEnemies - activeEnemies.Count);
-
-                for (int i = 0; i < spawnableCount; i++)
-                {
-                    if (spawnPoints.Length == 0)
-                    {
-                        Debug.LogError("No spawn points set!");
-                        yield break;
-                    }
-                    
-                    // Select random spawn point
-                    Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                    GameObject enemy = Instantiate(spawnData.enemyPrefab, sp.position, sp.rotation);
-
-                    activeEnemies.Add(enemy);
-                }
-            }
+            SpawnEnemy();
         }
     }
 
-    // Remove destroyed (null) enemies from the active list.
+    private void SpawnEnemy()
+    {
+        if (spawnPoints.Length == 0)
+        {
+            Debug.LogError("No spawn points defined!");
+            return;
+        }
+
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject enemy = Instantiate(
+            currentZone.enemyTypes[Random.Range(0, currentZone.enemyTypes.Count)].enemyPrefab,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
+        //Debug.Log($"Spawned enemy: {enemy.name} at {spawnPoint.position}");
+        // Configure enemy stats
+        Enemy controller = enemy.GetComponent<Enemy>();
+        LifeSystem Deathcontroller = enemy.GetComponent<LifeSystem>();
+
+        if (controller)
+        {
+            controller.SetStats(
+                currentZone.healthMultiplier,
+                currentZone.damageMultiplier
+            );
+        Deathcontroller.OnDeath.AddListener(() => HandleEnemyDeath(enemy));
+        }
+        else
+        {
+            Debug.LogWarning("Spawned enemy does not have an Enemy component!");
+        }
+
+        activeEnemies.Add(enemy);
+        enemiesSpawned++;
+    }
+
+public void HandleEnemyDeath(GameObject enemy)
+{
+    if (!activeEnemies.Contains(enemy)) return;
+
+    activeEnemies.Remove(enemy);
+    zoneManager.OnEnemyDefeated();
+}
+
+    public void ClearAllEnemies()
+    {
+        StopSpawning();
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy != null)
+            {
+                LifeSystem controller = enemy.GetComponent<LifeSystem>();
+                if (controller) controller.OnDeath.RemoveListener(() => HandleEnemyDeath(enemy));
+                Destroy(enemy);
+            }
+        }
+        activeEnemies.Clear();
+    }
+
     void CleanUpNullEnemies()
     {
         activeEnemies.RemoveAll(e => e == null);

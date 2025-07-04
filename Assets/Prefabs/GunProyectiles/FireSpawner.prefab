@@ -9690,7 +9690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  damage: 10
+  damage: 20
   lifetime: 8
   direction: {x: 0, y: 0, z: 0}
   fireTime: 8
@@ -9699,7 +9699,7 @@ MonoBehaviour:
   SpawTimeFire: 0
   burnDuration: 3
   burnTickRate: 1
-  burnDamagePerTick: 2
+  burnDamagePerTick: 10
 --- !u!54 &8455064567920873350
 Rigidbody:
   m_ObjectHideFlags: 0

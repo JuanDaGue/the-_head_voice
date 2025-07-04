@@ -25,7 +25,7 @@ public class CollectibleAnimation : MonoBehaviour
     private void Awake()
     {
         // Store the starting position of the collectible.
-        transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
+        transform.position =  transform.position + new Vector3(0, 1f, 0);
         startPos = transform.position;
 
         // If the light isn't assigned in the Inspector, try finding one in children.

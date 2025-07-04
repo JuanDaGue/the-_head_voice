@@ -132,7 +132,7 @@ public class GunManager : MonoBehaviour
     }
 
 
-    IEnumerator DelayedEquip(int index)
+    public IEnumerator DelayedEquip(int index)
     {
         isSwitching = true;
         // (Opcional) aquí podrías reproducir animación de sacar/guardar arma
@@ -140,7 +140,7 @@ public class GunManager : MonoBehaviour
         EquipGun(index);
         isSwitching = false;
     }
-    void EquipGun(int index)
+    public void EquipGun(int index)
     {
         if (index < 0 || index >= guns.Count) return;
         // Destroy previous gun model

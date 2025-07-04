@@ -32,9 +32,21 @@ public class TankEnemy : Enemy
 
     protected override void DoAttack()
     {
-        // simple heavy melee
-        //Debug.Log($"{name} slams for {attackPower * 1.5f} damage!");
-        player.GetComponent<LifeSystem>().TakeDamage(attackPower * 1.5f);
+        // 1) Play attack animation here...
+        // 2) Then do a physics check:
+        Vector3 center = transform.position + transform.forward * attackRange * 0.5f;
+        float radius = attackRange * 0.5f;
 
+        Collider[] hits = Physics.OverlapSphere(center, radius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                LifeSystem playerLife = hit.GetComponent<LifeSystem>();
+                if (playerLife != null)
+                    playerLife.TakeDamage(attackPower * 1.5f);
+            }
+        }
     }
+
 }
