@@ -85,8 +85,10 @@ public class EnemySearch : Bullet
             }
             else
             {
-               //Debug.LogWarning("No more enemies to search for.");
-                Destroy(gameObject, 5f);
+                //Debug.LogWarning("No more enemies to search for.");
+                Destroy(gameObject, lifetime); // sin objetivos
+                Debug.Log("All enemies processed, destroying bullet."+ lifetime);
+
             }
         }
     }
@@ -119,7 +121,8 @@ public class EnemySearch : Bullet
         }
         
         // Destroy the bullet
-        Destroy(gameObject);
+        Destroy(gameObject,lifetime); // sin objetivos
+
         //Destroy(gameObject);
     }
 

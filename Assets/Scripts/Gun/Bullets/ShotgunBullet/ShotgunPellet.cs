@@ -25,6 +25,6 @@ public class ShotgunPellet : Bullet
         }
         
         // Destroy the bullet
-        Destroy(gameObject,10f);
+        Destroy(gameObject,lifetime);
     }
 }
