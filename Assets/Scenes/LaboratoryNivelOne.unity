@@ -6577,20 +6577,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063816082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d83eea525943c343a303f757bb7566b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneUIPanel: {fileID: 1461902673}
-  zoneTitle: {fileID: 1946981887}
-  timerText: {fileID: 936545260}
-  enemyProgressText: {fileID: 1462919407}
-  enemyCountText: {fileID: 746408685}
-  progressMessage: {fileID: 1944962669}
-  statusMessage: {fileID: 851523262}
+  zoneUI: {fileID: 0}
+  statusText: {fileID: 0}
+  titleText: {fileID: 0}
+  progressText: {fileID: 0}
+  timerBar: {fileID: 0}
+  timerBackground: {fileID: 0}
+  PanelUI: {fileID: 0}
+  statusDuration: 2
+  titleDuration: 2
   fadeDuration: 0.5
-  messageDisplayTime: 3
+  enemyCountText: {fileID: 746408685}
+  timerText: {fileID: 936545260}
 --- !u!1 &1100246006
 GameObject:
   m_ObjectHideFlags: 0

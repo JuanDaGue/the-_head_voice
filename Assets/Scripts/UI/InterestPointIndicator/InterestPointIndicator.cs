@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class InterestPointManager : MonoBehaviour
 {
@@ -56,9 +57,15 @@ public class InterestPointManager : MonoBehaviour
 
     private void Update()
     {
+        removeDeadInterestPoints();
         UpdateCooldown();
         HandleInput();
         UpdateIndicators();
+    }
+
+    private void removeDeadInterestPoints()
+    {
+        interestPoints.RemoveAll(point => point.target == null || point.target.gameObject == null);
     }
 
     private void UpdateCooldown()
