@@ -18,6 +18,7 @@ public class GunUIManager : MonoBehaviour
 
     [Header("Weapon Selection")]
     public List<Button> weaponButtons;
+    public List<Image> ImageItems;
     private GunManager gunManager;
 
     private ItemInventory inventory;
@@ -41,21 +42,25 @@ public class GunUIManager : MonoBehaviour
     }
 void SetupWeaponButtons()
 {
-    int count = Mathf.Min(weaponButtons.Count, inventory.equippedItems.Count);
+    int count = Mathf.Min(ImageItems.Count, inventory.itemCountsList.Count);
     for (int i = 0; i < count; i++)
     {
         int index = i;
         var btn = weaponButtons[i];
-        var item = inventory.equippedItems[i];
+        var item = inventory.itemCountsList[i].item;
+        var itemCounts = inventory.itemCountsList[i].count;
+        var itemImage = ImageItems[i];
 
         //btn.onClick.AddListener(() => gunManager.EquipGun(index));
-        btn.GetComponentInChildren<Image>().color = new Color32(85, 85, 85, 255);
-        btn.GetComponentInChildren<Image>().sprite = item.itemIcon;
+        //itemImage.color = new Color32(85, 85, 85, 255);
+        itemImage.sprite = item.itemIcon;
         var label = btn.GetComponentInChildren<TextMeshProUGUI>();
-        label.text = item.itemName;
-        label.fontSize = 24;
-        label.alignment = TextAlignmentOptions.Center;
-        btn.gameObject.SetActive(true);
+        //Debug.Log(item);
+        
+        label.text = itemCounts > 1 ? $"X{itemCounts}" : "";
+            // label.fontSize = 24;
+            // label.alignment = TextAlignmentOptions.Center;
+            btn.gameObject.SetActive(true);
     }
 
     // Desactiva los botones sobrantes (si hay más botones que armas)

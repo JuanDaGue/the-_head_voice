@@ -36,9 +36,17 @@ public class ItemPrefab : MonoBehaviour
             {
                 Debug.LogWarning("No inventory found on player!");
                 return;}
-            inventory.equippedItems.Add(itemPrefab);    
 
-            Destroy(gameObject); // Destroy the item after pickup
+            if(inventory.tryAddItem(itemPrefab))
+            {
+                Debug.Log($"Item {itemPrefab.itemName} added to inventory.");
+                Destroy(gameObject); // Destroy the item after pickup
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to add item {itemPrefab.itemName} to inventory. It may already exist.");
+            }
+
         }
     }
 }

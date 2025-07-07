@@ -50,7 +50,7 @@ public class PowerUpsManager : MonoBehaviour
         float roll = Random.value;
         if (roll > spawnProbability)
         {
-            Debug.Log("No power-up spawned (roll failed).");
+            //Debug.Log("No power-up spawned (roll failed).");
             return;
         }
 

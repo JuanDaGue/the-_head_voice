@@ -109,7 +109,7 @@ public class ZoneUIManager : MonoBehaviour
         timerBar.fillAmount = fillAmount;
         //Debug.Log($"Timer Bar Fill Amount: {fillAmount}");
         // Visual feedback - change color based on time remaining
-        timerBar.color = Color.Lerp(Color.red, Color.green, fillAmount);
+        timerBar.color = Color.Lerp(Color.red, Color.blue, fillAmount);
     }
 
     private void UpdateProgressText(Zone zoneConfig)
