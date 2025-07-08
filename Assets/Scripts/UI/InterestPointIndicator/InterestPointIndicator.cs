@@ -127,7 +127,7 @@ public class InterestPointManager : MonoBehaviour
 
     private void UpdateIndicatorPosition(InterestPointData point)
     {
-        Vector3 worldPos = point.target.position + Vector3.up * 0.5f; // 0.5m above object
+        Vector3 worldPos = point.target.position + Vector3.up * 1.5f; // 0.5m above object
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
         // Vector3 screenPos = mainCamera.WorldToScreenPoint(point.target.position);
         bool isBehind = Vector3.Dot(point.target.position - player.position, player.forward) < 0;

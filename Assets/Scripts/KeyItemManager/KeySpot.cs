@@ -35,7 +35,7 @@ public class KeySpot : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
-        mainCanvas = FindObjectOfType<Canvas>();
+        mainCanvas = FindFirstObjectByType<Canvas>();
         GetComponent<Collider>().isTrigger = true;
     }
 
