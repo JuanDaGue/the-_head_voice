@@ -1,55 +1,66 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KeyItemManager : MonoBehaviour
 {
-
-
     [System.Serializable]
     public struct ItemPrefabEntry
     {
         public KeySpot.KeyItemType type;
         public GameObject prefab;
     }
-    [Header("Key Spots")]
-    [Tooltip("List of key spots that can be activated by the player.")]
-    public List<KeySpot> spots = new List<KeySpot>();
-    public float pressTime = 1.0f;
-    private float holdTime = 0f;
-    private bool isPressing = false;
-    [SerializeField] private KeySpot currentSpot;
-    
-    private GunManager gunManager;
-    [Header("Configuración de Prefabs")]
-    public ItemPrefabEntry[] prefabEntries;
 
-    public Dictionary<KeySpot.KeyItemType, GameObject> itemPrefabs = new Dictionary<KeySpot.KeyItemType, GameObject>();
+    [Header("Configuration")]
+    [SerializeField] private float pressTime = 1.0f;
+    [SerializeField] private ItemPrefabEntry[] prefabEntries;
 
-    void Awake()
+    [Header("Dependencies")]
+    [SerializeField] private List<KeySpot> spots;
+    [SerializeField] private GunManager gunManager;
+
+    private Dictionary<KeySpot.KeyItemType, GameObject> itemPrefabs;
+    private KeySpot currentSpot;
+    private float holdTime;
+    private bool isPressing;
+
+    private void Awake()
     {
+        InitializeItemPrefabs();
+        ResolveDependencies();
+    }
 
-        // Crear y poblar el diccionario
+    private void InitializeItemPrefabs()
+    {
         itemPrefabs = new Dictionary<KeySpot.KeyItemType, GameObject>();
         foreach (var entry in prefabEntries)
         {
-            if (entry.prefab != null && !itemPrefabs.ContainsKey(entry.type))
+            if (entry.prefab && !itemPrefabs.ContainsKey(entry.type))
                 itemPrefabs.Add(entry.type, entry.prefab);
         }
     }
 
-
-    void Start()
+    private void ResolveDependencies()
     {
-        gunManager = FindFirstObjectByType<GunManager>();
+        if (!gunManager) gunManager = FindFirstObjectByType<GunManager>();
         
-        foreach (KeySpot spot in spots)
+        foreach (var spot in spots)
         {
-            if (spot == null) continue;
-            spot.Initialize(this, gunManager);
+            if (spot) spot.Initialize(this, gunManager);
         }
     }
 
-    void Update()
+    private void OnEnable()
+    {
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    private void Update()
     {
         if (currentSpot == null) return;
         HandleInput();
@@ -57,60 +68,86 @@ public class KeyItemManager : MonoBehaviour
 
     private void HandleInput()
     {
-        if (!currentSpot.isActivated)
-            return;
-
         if (Input.GetKey(KeyCode.E))
         {
-            if (!isPressing)
-            {
-                isPressing = true;
-                holdTime = 0f;
-            }
-
-            holdTime += Time.deltaTime;
-
-            if (holdTime >= pressTime)
-            {
-                InteractWithCurrentSpot();
-                Debug.Log("✅ Activated KeySpot: " + currentSpot.name);
-                
-                currentSpot.SpawnItem();
-                currentSpot.isActivated = false;
-                //currentSpot = null;
-                Destroy(currentSpot.gameObject);
-                isPressing = false;
-                holdTime = 0f;
-            }
+            HandleKeyPress();
         }
-
-        if (Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyUp(KeyCode.E))
         {
-            isPressing = false;
-            holdTime = 0f;
+            ResetKeyPress();
         }
     }
 
-    private void InteractWithCurrentSpot()
+    private void HandleKeyPress()
     {
-        Debug.Log("Interacting with KeySpot: " + currentSpot.name);
+        if (!isPressing)
+        {
+            isPressing = true;
+            holdTime = 0f;
+        }
+
+        holdTime += Time.deltaTime;
+
+        if (holdTime >= pressTime)
+        {
+            CompleteInteraction();
+        }
+    }
+
+    private void ResetKeyPress()
+    {
+        isPressing = false;
+        holdTime = 0f;
+    }
+
+    private void CompleteInteraction()
+    {
+        if (currentSpot == null) return;
+        
+        currentSpot.SpawnItem();
+        currentSpot = null;
+        ResetKeyPress();
     }
 
     public void ActivateSpot(KeySpot spot)
     {
-        if (currentSpot != null)
-        {
-            currentSpot.isActivated = false;
-        }
         currentSpot = spot;
-        currentSpot.isActivated = true;
     }
     
     public void DeactivateSpot()
     {
-        if (currentSpot != null)
+        currentSpot = null;
+    }
+
+    public GameObject GetItemPrefab(KeySpot.KeyItemType type)
+    {
+        return itemPrefabs.TryGetValue(type, out var prefab) ? prefab : null;
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        CleanupAllKeyUIs();
+    }
+
+    private void CleanupAllKeyUIs()
+    {
+        foreach (var spot in spots)
         {
-            currentSpot.isActivated = false;
+            if (spot != null)
+            {
+                spot.DestroyKeyUI();
+            }
         }
     }
+
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (spots.Count == 0)
+        {
+            var foundSpots = FindObjectsByType<KeySpot>(FindObjectsSortMode.None);
+            spots = new List<KeySpot>(foundSpots);
+        }
+    }
+    #endif
 }

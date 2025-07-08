@@ -45,7 +45,7 @@ public class InterestPointManager : MonoBehaviour
         InitializeIndicators();
     }
 
-    private void InitializeIndicators()
+    protected void InitializeIndicators()
     {
         foreach (var point in interestPoints)
         {
@@ -127,7 +127,9 @@ public class InterestPointManager : MonoBehaviour
 
     private void UpdateIndicatorPosition(InterestPointData point)
     {
-        Vector3 screenPos = mainCamera.WorldToScreenPoint(point.target.position);
+        Vector3 worldPos = point.target.position + Vector3.up * 0.5f; // 0.5m above object
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        // Vector3 screenPos = mainCamera.WorldToScreenPoint(point.target.position);
         bool isBehind = Vector3.Dot(point.target.position - player.position, player.forward) < 0;
 
         // Calculate target position and rotation
@@ -137,7 +139,7 @@ public class InterestPointManager : MonoBehaviour
         if (screenPos.z > 0 && !isBehind)
         {
             // On-screen position
-            targetPosition = screenPos + new Vector3(0, 10f, 0);
+            targetPosition = screenPos;
             targetRotation = Quaternion.identity;
         }
         else
