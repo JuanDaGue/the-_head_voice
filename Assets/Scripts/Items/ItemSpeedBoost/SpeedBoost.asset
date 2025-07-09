@@ -24,5 +24,5 @@ MonoBehaviour:
   reloadTimeBonus: 0
   itemName: SpeedBoost
   itemDescription: Incrementa el alcance y velicidad de las balas
-  itemIcon: {fileID: 21300000, guid: ef7593c8c8730cf4a8ac93185f7464c3, type: 3}
+  itemIcon: {fileID: 21300000, guid: 82e11d43d62bbd045a02e93acb2fa50e, type: 3}
   itemColor: {r: 0.90196085, g: 0.20392159, b: 0.20392159, a: 0}
