@@ -28,7 +28,7 @@ public class ItemsInformation : MonoBehaviour
     {
         infoPanel.SetActive(false);
         if (itemInventory == null)
-            itemInventory = FindObjectOfType<ItemInventory>();
+            itemInventory = FindFirstObjectByType<ItemInventory>();
         if (playerCamera == null)
             playerCamera = Camera.main;
     }
@@ -45,8 +45,8 @@ public class ItemsInformation : MonoBehaviour
         if (!isPaused) return;
 
         // Navegar con D / A
-        if (Input.GetKeyDown(KeyCode.D)) NextItem();
-        if (Input.GetKeyDown(KeyCode.A)) PreviousItem();
+        if (Input.GetKeyDown(KeyCode.D)|| Input.GetKeyDown(KeyCode.RightArrow)) NextItem();
+        if (Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.LeftArrow)) PreviousItem();
 
         // Mantener fija la cámara
         if (playerCamera != null)
