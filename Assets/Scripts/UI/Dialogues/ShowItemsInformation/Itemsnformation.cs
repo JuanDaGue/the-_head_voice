@@ -161,7 +161,7 @@ public class ItemsInformation : MonoBehaviour
             rt.localScale = isSel ? Vector3.one * 1.2f : Vector3.one * 0.8f;
             // Opacidad
             var c = img.color;
-            c.a = isSel ? 1f : 0.5f;
+            c.a = isSel ? 1f : 0.8f;
             img.color = c;
         }
     }
