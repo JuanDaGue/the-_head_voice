@@ -4,9 +4,9 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     [Header("Core Settings")]
-    public float speed      = 20f;
-    public float damage     = 10f;
-    public float lifetime   = 5f;
+    public float speed = 20f;
+    public float damage = 10f;
+    public float lifetime = 5f;
     public Vector3 direction;
 
     protected Rigidbody rb;
@@ -14,27 +14,29 @@ public abstract class Bullet : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        // make sure collider is trigger for instant callbacks
-        GetComponent<Collider>().isTrigger = true;
+        GetComponent<Collider>().isTrigger = true; // Mantenemos Trigger para usar OnTriggerEnter
     }
 
     protected virtual void Start()
     {
         Destroy(gameObject, lifetime);
+
+        // CORREGIDO: usamos .velocity en lugar de .linearVelocity
         rb.linearVelocity = direction.normalized * speed;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // ignore if hitting another bullet or trigger zone
-        if (other.isTrigger) return;
+        // ❌ ELIMINADO: este filtro impide que disparemos a objetos trigger
+        // if (other.isTrigger) return;
+
+        Debug.Log($"[Bullet] Colisión con: {other.name}");
 
         OnHit(other);
-        //Destroy(gameObject);
     }
 
     /// <summary>
-    /// Called when this bullet hits something non-trigger.
+    /// Called when this bullet hits something.
     /// </summary>
     protected abstract void OnHit(Collider hit);
 }

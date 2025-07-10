@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "the-_head_voice.sln"
+    "dotnet.defaultSolution": "the-head-voice.sln"
 }
