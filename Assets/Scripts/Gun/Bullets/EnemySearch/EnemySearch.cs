@@ -87,7 +87,7 @@ public class EnemySearch : Bullet
             {
                 //Debug.LogWarning("No more enemies to search for.");
                 Destroy(gameObject, lifetime); // sin objetivos
-                Debug.Log("All enemies processed, destroying bullet."+ lifetime);
+                //Debug.Log("All enemies processed, destroying bullet."+ lifetime);
 
             }
         }
