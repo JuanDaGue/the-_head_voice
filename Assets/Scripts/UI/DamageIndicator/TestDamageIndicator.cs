@@ -1,22 +1,20 @@
+// TestDamageIndicator.cs
 using UnityEngine;
 
 public class TestDamageIndicator : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [Range(0.1f, 30f)]
-    [SerializeField] private float destroyTimer = 20f;
+    [SerializeField][Range(0.1f, 10f)] private float destroyTimer = 1f;
+
     void Start()
     {
-        InvokeRepeating(nameof(RegisterDamageIndicator), 0f, 0.1f);
-        //Invoke("RegisterDamageIndicator", Random.Range(0.1f, 10f));
+        RegisterDamageIndicator();
     }
 
-    // Update is called once per frame
     void RegisterDamageIndicator()
     {
-        if (!DI_system.CheckIfTheObjectInsight(this.transform))
+        if (!DI_system.Instance.IsTargetVisible(transform))
         {
-            DI_system.CreateDamageIndicator(this.transform);
+            DI_system.Instance.CreateIndicator(transform);
         }
         Destroy(gameObject, destroyTimer);
     }
